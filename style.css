@@ -1,0 +1,41 @@
+html,body{
+    margin-left: 50px; /* Space from this element (entire page) and others*/
+    padding: 0; /*space from content and border*/
+    font-family: "Source Serif Pro", Times, serif;
+}
+h1,h2,h3,h4,h5,h6 {
+    font-family: "Source Serif Pro", sans-serif;
+    font-size: 18px;
+}
+p{
+    font-weight: 300;
+    font-size: 15px;
+}
+
+ul{
+    font-weight: 300;
+    font-size:15px;
+}
+
+hr {
+    margin-top: 10px;
+    margin-bottom: 1rem;
+    border: 0;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.list-group li{
+    border:  none;
+}
+.navbar{
+    font-family: "Source Serif Pro", serif;
+    font-size: 20px !important;
+}
+.navbar-brand
+{
+    font-family: "Source Serif Pro", serif;
+    color:grey;
+
+    margin: 0px;
+}
+
