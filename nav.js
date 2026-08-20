@@ -5,4 +5,10 @@ fetch('nav.html')
     let newelem = document.createElement("div");
     newelem.innerHTML = text;
     oldelem.parentNode.replaceChild(newelem,oldelem);
+    let page = location.pathname.split("/").pop() || "index.html";
+    let current = newelem.querySelector('.nav-link[href="' + page + '"]');
+    if (current) {
+        current.classList.add("active");
+        current.setAttribute("aria-current", "page");
+    }
 })
