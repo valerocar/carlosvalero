@@ -26,7 +26,40 @@ hr {
     margin-top: 10px;
     margin-bottom: 1rem;
     border: 0;
-    border-top: 1px solid rgba(0, 0, 0, 0.1);
+    border-top: 1px solid rgba(44, 82, 130, 0.25);
+}
+
+a {
+    color: #2c5282;
+}
+
+a:hover {
+    color: #1a365d;
+}
+
+.home-title {
+    font-size: 32px;
+}
+
+.home-tagline {
+    letter-spacing: 2px;
+    color: #444;
+}
+
+.home-portrait {
+    max-width: 250px;
+    height: auto;
+}
+
+.home-hero {
+    min-height: calc(100vh - 280px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.footer-icons a {
+    text-decoration: none;
 }
 
 .list-group li{
