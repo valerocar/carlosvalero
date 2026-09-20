@@ -1,0 +1,403 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Choosing how to stand a part on a 3D printer's bed is a search over orientations. Two of the three numbers matter and one does not, and the shape of that leftover circle is the Hopf fibration.">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <title>The Shape of All Possible Orientations — Carlos Valero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/cv.png">
+    <script src="/writing/mathjax.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+<script id="replace_with_navbar" src="/nav.js?v=2"></script>
+<br>
+<div class="container">
+    <article class="writing-article">
+        <p class="writing-meta"><a href="/writing.html">&larr; Writing</a></p>
+        <h1>The Shape of All Possible Orientations</h1>
+        <p class="writing-lede">
+            A 3D printer asks one question before anything else — which way up? — and the answer
+            lives on a sphere with a circle hidden over every point
+        </p>
+        <p class="writing-byline">Carlos Valero Valdés</p>
+
+        <div class="writing-abstract">
+            <p>
+                Stand a part on a printer’s bed one way and it prints clean. Turn it over and half its
+                surface hangs in mid-air, needing scaffolding that you will later snap off and throw away.
+                Choosing between those outcomes is a search, and the first question is what you are
+                searching <em>over</em>. An orientation takes three numbers, but only two of them change
+                anything: spinning the part on the bed like a turntable leaves every overhang exactly as
+                it was. So the search happens on a sphere. The third number has not gone away, though — it
+                is still there, a circle of ignored choices sitting over every point of that sphere, and
+                the way those circles fit together is one of the most celebrated objects in topology.
+            </p>
+        </div>
+
+        <h2>1. Which way up?</h2>
+
+        <p>
+            A fused-filament printer builds a part in horizontal layers, from the bed upwards. Each new
+            layer needs something beneath it to rest on. Where the surface leans out too far — the usual
+            rule of thumb is more than 45° from vertical — there is nothing underneath, and the slicer has
+            to print a disposable lattice to hold the material up until it sets. That scaffolding costs
+            filament, costs time, leaves scars on the surface it touched, and has to be removed by hand.
+        </p>
+        <p>
+            Which faces overhang depends entirely on how the part is standing. Here is a small bracket,
+            printed two ways. Every face is coloured by whether it needs support.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/hopf_upright.png"
+                         alt="A bracket standing upright on the print bed, with the underside of its arm marked as needing support">
+                    <div class="subcaption">(a) standing up — 2.28 of support</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/hopf_best.png"
+                         alt="The same bracket tipped onto a tilted orientation, with almost no faces needing support">
+                    <div class="subcaption">(b) tipped over — 0.52</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 1.</span> The same part, the same printer, two
+                orientations. Clay marks the faces that lean more than 45° away from vertical and so need support;
+                the faces resting on the bed are not counted, since the bed holds those up for free. The
+                numbers are the total area of the clay, in the units the model is built in — the upright
+                pose needs more than four times as much scaffolding as the tipped one. Nothing about the
+                part changed. Only which way it was facing.
+            </figcaption>
+        </figure>
+
+        <p>
+            So: find the orientation that minimises the clay. That sounds like a search over the rotation
+            group — three degrees of freedom, whichever way you like to coordinatise them. But it isn’t,
+            quite, and seeing why is the whole point of what follows.
+        </p>
+
+        <h2>2. The number that does nothing</h2>
+
+        <p>
+            Take the good orientation from Figure 1 and, without tipping the part at all, rotate it about
+            the printer’s vertical axis. Spin it on the bed like a cake on a turntable. Watch the clay.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/hopf_spin_0.png" alt="The tipped bracket at one turntable angle">
+                    <div class="subcaption">(a) 0°</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/hopf_spin_1.png" alt="The same bracket rotated 120 degrees about the vertical">
+                    <div class="subcaption">(b) 120°</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/hopf_spin_2.png" alt="The same bracket rotated 240 degrees about the vertical">
+                    <div class="subcaption">(c) 240°</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 2.</span> One orientation, three turntable settings. The
+                part is in a visibly different place each time, and the support pattern is identical —
+                not approximately, but exactly. Every face makes the same angle with the vertical as
+                before, because spinning about the vertical does not change any angle to the vertical.
+            </figcaption>
+        </figure>
+
+        <p>
+            The reason is a one-line calculation. Whether a face overhangs depends on the angle between
+            its normal and straight up. Rotating the part about the vertical axis rotates every normal
+            about that same axis, and a rotation about the vertical preserves the angle everything makes
+            with the vertical. The support cost cannot possibly notice.
+        </p>
+        <p>
+            What the cost <em>does</em> notice is one thing only: which direction <em>of the part</em>
+            ended up pointing at the ceiling. Call that the <strong>build direction</strong>. It is a unit
+            vector, drawn in the part’s own frame — a point on a sphere. Every orientation determines one,
+            and any two orientations with the same build direction cost the same to print.
+        </p>
+
+        <aside class="note">
+            <h4>What the turntable does change</h4>
+            <p>
+                Honesty demands a caveat: the spin is free only for overhangs. It still matters for other
+                things — where the part sits relative to the bed’s warm spots, how several parts nest
+                together on a crowded plate, how the extruder’s travel moves add up, and the in-plane
+                direction of the layer lines if the part is loaded anisotropically. This article is about
+                the support cost, which is usually the term that dominates, and for that term the spin is
+                genuinely and exactly irrelevant.
+            </p>
+        </aside>
+
+        <h2>3. The landscape you are actually searching</h2>
+
+        <p>
+            If the cost depends only on the build direction, then the search space is the sphere of
+            directions, and the cost is a function on that sphere. We can simply draw it: for every
+            direction, tip the part that way and measure the area that would need support.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/hopf_sphere.png"
+                 alt="A sphere of build directions coloured by support area, with an orange expensive cap near the top and a broad blue cheap region">
+            <figcaption>
+                <span class="figure-label">Figure 3.</span> The support cost of every build direction, for
+                the bracket of Figure 1. Blue is cheap, clay is expensive; the range runs from about 0.50
+                to 2.45. The dot marks the best direction and the cross the worst. Two things are worth
+                noticing. The optimum is a <em>tilt</em>, not one of the obvious axis-aligned poses — which
+                is why slicers search rather than guess. And the landscape has creases: sharp ridges where
+                a whole flat facet of the part tips past 45° all at once and its entire area joins or
+                leaves the bill.
+            </figcaption>
+        </figure>
+
+        <p>
+            This is a genuinely two-dimensional search, and a small one. A few thousand directions cover
+            the sphere finely enough to find the optimum. Had we insisted on searching orientations
+            proper, we would have been sweeping a three-dimensional space and evaluating the same answer
+            over and over — once for every turntable setting of every direction.
+        </p>
+
+        <h2>4. Where the third number went</h2>
+
+        <p>
+            Discarding the spin was the right thing to do, but it is worth asking what exactly was
+            discarded. Fix a build direction. The orientations that realise it are not unique: there is a
+            full circle of them, one for each turntable angle. Fix a different direction, and there is
+            another circle. The space of all orientations is therefore assembled out of circles — one
+            circle sitting over each point of the sphere — and the sphere is what you get by collapsing
+            each circle to a point.
+        </p>
+        <p>
+            It is tempting to conclude that the space of orientations is just “a sphere times a circle”:
+            pick a direction, then pick an angle. It is not, and the obstruction is one you have already
+            met. To write an orientation as a (direction, angle) pair, you must first decide, for each
+            direction on the sphere, which turntable setting counts as angle zero. That means choosing a
+            reference direction tangent to the sphere at every point, varying continuously — combing the
+            sphere flat. The hairy ball theorem says you cannot. Somewhere the comb must part, and that
+            is exactly where naive angle coordinates go wrong.
+        </p>
+        <p>
+            So the circles are stacked over the sphere in a way that is locally a product and globally
+            twisted. Written out, with \(S^1\) the circle, \(S^3\) the space of orientations and \(S^2\)
+            the sphere of build directions:
+        </p>
+        \[ S^1 \;\longrightarrow\; S^3 \;\longrightarrow\; S^2 . \]
+        <p>
+            This is the <strong>Hopf fibration</strong>, found by Heinz Hopf in 1931. The middle space is
+            the 3-sphere — the unit quaternions, which is how orientations are almost always stored in
+            practice — and the map to \(S^2\) is nothing more exotic than “given this orientation, which
+            way is up?”
+        </p>
+
+        <aside class="note">
+            <h4>Quaternions, and the factor of two</h4>
+            <p>
+                A pedant’s footnote that is worth knowing. The unit quaternions form \(S^3\), but they
+                describe each physical orientation <em>twice</em>: \(q\) and \(-q\) are the same rotation.
+                The rotation group is therefore \(S^3\) with antipodes glued, and the honest statement is
+                that the build-direction map is defined on \(S^3\), where its fibres are the circles Hopf
+                described. Everything below is drawn on \(S^3\). If you work with rotation matrices rather
+                than quaternions you see the same circles, traversed twice.
+            </p>
+        </aside>
+
+        <h2>5. What the circles look like</h2>
+
+        <p>
+            The 3-sphere does not fit in our space, so to see the circles we do what cartographers do:
+            project. Stereographic projection maps the 3-sphere, minus a single point, onto ordinary
+            three-dimensional space. It distorts sizes — a circle passing near the missing point comes out
+            enormous — but it is faithful about what matters here: circles stay circles, and curves that
+            are linked stay linked.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/hopf_linked.png"
+                 alt="Eight Hopf fibres drawn as coloured tubes in three dimensions, each pair passing through one another exactly once">
+            <figcaption>
+                <span class="figure-label">Figure 4.</span> Eight of the circles, one over each of eight
+                build directions, coloured by how far their direction tilts from the vertical. They never
+                touch — two different build directions can never share an orientation. But no two of them
+                can be pulled apart either: every single pair is linked, exactly once. The long blue one
+                is a circle too; it simply passes close to the point the projection sends to infinity.
+            </figcaption>
+        </figure>
+
+        <p>
+            That every pair is linked is not a quirk of the drawing. It is measurable: computing the Gauss
+            linking integral for any two of these curves returns 1, and that number is what makes the
+            fibration twisted rather than a plain product. A product \(S^2 \times S^1\) would have
+            disjoint, unlinked circles that you could pull apart like beads on separate strings.
+        </p>
+        <p>
+            Take not eight directions but a whole circle of them — all the directions tilted, say, 74°
+            from the part’s own axis — and their circles sweep out a torus. Take several such rings and
+            the tori nest inside one another, filling the space.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/hopf_tori.png"
+                 alt="Hundreds of Hopf fibres forming four nested tori of interlocking circles">
+            <figcaption>
+                <span class="figure-label">Figure 5.</span> The circles over four rings of build
+                directions. Each ring’s worth of circles lies on a torus, and the tori nest — every one
+                inside the next, with no gaps and no intersections. Continue the family and the tori sweep
+                out the entire 3-sphere: every orientation of the part lies on exactly one of these
+                circles, and every circle corresponds to exactly one way up.
+            </figcaption>
+        </figure>
+
+        <h2>6. The landscape, lifted</h2>
+
+        <p>
+            Figure 3 and Figure 5 are two views of the same thing, and it is worth putting them side by
+            side. Colour each circle not by its latitude but by what that build direction costs to print,
+            and the cost landscape from the sphere reappears upstairs.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/hopf_cost.png"
+                 alt="Hopf fibres coloured by print cost, with the expensive clay-coloured circles bunched together in the centre">
+            <figcaption>
+                <span class="figure-label">Figure 6.</span> The circles of Figure 5, recoloured by support
+                cost. The colour is constant along each circle — that is the content of Figure 2, drawn in
+                orientation space — and the expensive clay-coloured circles bunch together, because the
+                expensive build directions form one connected cap on the sphere. Searching orientations
+                means searching this; searching build directions means searching its shadow, which has one
+                dimension fewer and loses nothing.
+            </figcaption>
+        </figure>
+
+        <h2>7. Why this earns its keep</h2>
+
+        <p>
+            None of this changes the answer for our bracket — a fine enough grid on the sphere finds the
+            optimum whether or not you know what a fibration is. Where the structure pays is in knowing
+            <em>how to build the grid</em>, and there the naive choice is wrong in a way that is easy to
+            miss.
+        </p>
+        <p>
+            The obvious way to sample directions is to pick the two angles that describe them — how far
+            from the pole, how far around — and draw both uniformly. It does not work, for the reason
+            every map of the world makes Greenland look enormous: equal steps in the polar angle do not
+            cover equal areas. The fix is to sample the <em>cosine</em> of the polar angle uniformly
+            instead, which makes area, not angle, the thing spread evenly.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/hopf_sample_naive.png"
+                         alt="Points on a sphere sampled uniformly in both angles, visibly clumped at the poles">
+                    <div class="subcaption">(a) uniform in both angles</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/hopf_sample_hopf.png"
+                         alt="Points on a sphere sampled uniformly by area, evenly spread">
+                    <div class="subcaption">(b) uniform by area</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 7.</span> Fourteen hundred build directions, drawn two
+                ways. The polar caps within 30° of each pole cover 13.4% of the sphere. The angle-uniform
+                sample puts 33.3% of its points there and correspondingly starves the equator; the
+                area-uniform sample puts 12.9% there, which is 13.4% within the noise of this many points.
+                The first picture wastes most of its budget re-examining two small patches.
+            </figcaption>
+        </figure>
+
+        <p>
+            This matters beyond our problem. Plenty of orientation searches genuinely need all three
+            numbers — packing several parts on a plate, planning a robot’s wrist, matching a molecule
+            against a density map — and for those you want a grid on the full space of orientations that
+            is uniform and that can be refined without starting over. The best known construction does
+            exactly what this article has been describing, in reverse: take a good area-uniform grid on
+            the sphere of directions, take a good sequence on the circle, and assemble them through the
+            Hopf map. Yershova, Jain, LaValle and Mitchell set this out in 2010, and it remains the
+            standard recipe. The fibration is not decoration on that construction; it is the reason the
+            pieces fit together without seams or clumps.
+        </p>
+
+        <h2>8. Try it</h2>
+
+        <p>
+            The whole argument of Section 2 — the claim that the third number does nothing — is four lines
+            to check. Mesh the part, take the outward normal and area of every triangle, and add up the
+            area that overhangs:
+        </p>
+
+<pre><code>def support_area(normals, areas, centroids, verts, d, angle=45):
+    """Area needing support when direction d of the part points up."""
+    steep    = normals @ d &lt; -np.cos(np.radians(angle))
+    on_plate = centroids @ d - (verts @ d).min() &lt; 0.02   # the bed holds these
+    return areas[steep &amp; ~on_plate].sum()
+</code></pre>
+
+        <p>
+            Notice what the function is handed: a direction, not an orientation. There is nowhere to put a
+            turntable angle, because there is nothing for it to do. Feed it any orientation you like,
+            extract the build direction, and every one of the infinitely many orientations sharing that
+            direction returns the identical number — which is what the accompanying test suite checks, to
+            the last bit, along with the claims that the fibres are round circles, that distinct fibres
+            never meet, and that any two of them link exactly once.
+        </p>
+        <p>
+            There is a moral here about modelling, and it is not really about printing. Before searching a
+            space, it is worth asking which of its directions your objective can actually feel. The
+            answers often factor: the thing you care about lives on a smaller space, and what you are
+            quotienting out has a shape of its own. Sometimes that shape is dull. Once in a while it is a
+            circle bundle over a sphere that Heinz Hopf found in 1931, and the pictures are worth the
+            detour.
+        </p>
+
+        <hr class="section-break">
+
+        <h3>Further reading</h3>
+        <ul class="writing-refs">
+            <li>H. Hopf, <em>Über die Abbildungen der dreidimensionalen Sphäre auf die Kugelfläche</em>,
+                Mathematische Annalen 104 (1931) — the original.</li>
+            <li>A. Yershova, S. Jain, S. LaValle and J. Mitchell, <em>Generating uniform incremental grids
+                on SO(3) using the Hopf fibration</em>, International Journal of Robotics Research 29
+                (2010) — the sampling construction of Section 7.</li>
+            <li>N. Johnson, <em>Visualizing the Hopf fibration</em> — an animated treatment, if you
+                would like to see Figure 5 turn.</li>
+        </ul>
+
+        <hr class="section-break">
+
+        <p class="writing-hire">
+            I work as an independent consultant helping engineering and computational teams solve
+            difficult problems in geometric modeling, surface processing, and algorithmic design. If your
+            team is tackling a non-trivial spatial or mathematical challenge, reach out directly at
+            <a href="mailto:contact@carlosvalero.com">contact@carlosvalero.com</a>.
+        </p>
+
+        <p class="writing-links">
+            <a href="/writing.html">All writing</a>
+        </p>
+    </article>
+    <br>
+    <script id="replace_with_footer" src="/footer.js?v=2"></script>
+    <br>
+    <br>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
