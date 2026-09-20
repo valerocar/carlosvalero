@@ -1,0 +1,683 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Every shape in this article — a two-holed doughnut, a coffee mug, a rounded die — is a single equation. An introduction to implicit modelling by blending indicator functions and warping space.">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <title>Sculpting with Equations — Carlos Valero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/cv.png">
+    <script src="/writing/mathjax.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+<script id="replace_with_navbar" src="/nav.js"></script>
+<br>
+<div class="container">
+    <article class="writing-article">
+        <p class="writing-meta"><a href="/writing.html">&larr; Writing</a></p>
+        <h1>Sculpting with Equations</h1>
+        <p class="writing-lede">
+            How to build a coffee mug, a die, and a two-holed doughnut out of a single formula
+        </p>
+        <p class="writing-byline">
+            Carlos Valero Valdés &middot; Departamento de Matemáticas, Universidad de Guanajuato, México
+        </p>
+
+        <div class="writing-abstract">
+            <p>
+                Every shape in this article — a two-holed doughnut, a coffee mug with a handle, a rounded
+                die with all twenty-one pips — is a <em>single equation</em>. No polygon meshes were
+                sculpted, no 3D modeling software was harmed. The whole trick rests on two ideas simple
+                enough to explain over coffee: you can do <em>arithmetic</em> with yes/no questions, and
+                you can <em>soften</em> a yes/no question into a “maybe.” A third idea, warping space
+                itself, then twists these creations like taffy. Everything is illustrated with free,
+                open-source Python <a href="https://github.com/valerocar/geometry-blender" target="_blank"
+                rel="noopener noreferrer">code</a>, so you can sculpt along at home.
+            </p>
+        </div>
+
+        <h2>1. A shape is a question</h2>
+
+        <p>
+            There are two very different ways to tell someone what a circle is. One is to give directions
+            for <em>drawing</em> it: put your compass point here, open it this wide, spin. The other is to
+            give a <em>test</em> for membership: the circle of radius \(1\) consists of exactly those
+            points \((x,y)\) for which
+        </p>
+        \[ x^2 + y^2 = 1 . \]
+        <p>
+            The first description is a recipe for a pencil. The second is a <em>question</em>: hand me any
+            point in the plane and I will answer, using the formula, whether it lies on the circle. Shapes
+            described this way are called <em>implicit</em>, and they are a quietly powerful idea: the
+            formula knows about <em>every</em> point at once. Even better, if we relax the question from
+            “are you <em>on</em> the circle?” to
+        </p>
+        \[ x^2 + y^2 \le 1 \qquad\text{(“are you inside?”)} \]
+        <p>
+            we get a <em>solid</em> disk instead of a hairline curve. Solid objects in 3D work the same
+            way: \(x^2+y^2+z^2 \le 1\) is a solid ball, \(x^2+y^2 \le 1\) is an infinite solid cylinder
+            around the \(z\)-axis, and \(z \ge 0\) is the half of space above the floor.
+        </p>
+        <p>
+            That is a fine start, but nobody drinks coffee out of a half-space. Real objects — mugs, dice,
+            pretzels — look hopelessly beyond the reach of one formula. The point of this article is that
+            they are not. We will build them from spheres, cylinders and planes the way a sculptor builds
+            from clay: joining pieces, carving pieces away, and smoothing the seams with a thumb. Our
+            thumb will be a parameter called \(k\).
+        </p>
+
+        <h2>2. Arithmetic with yes and no</h2>
+
+        <p>
+            Mathematics has a wonderfully blunt device for turning a shape into a function. Given a set
+            \(A\) (say, the solid disk), its <em>indicator function</em> \(\chi_A\) answers the membership
+            question with a number:
+        </p>
+        \[
+        \chi_A(p) =
+        \begin{cases}
+        1 &amp; \text{if the point } p \text{ belongs to } A,\\
+        0 &amp; \text{if it does not.}
+        \end{cases}
+        \]
+        <p>
+            One for yes, zero for no. The surprise is that the standard ways of combining <em>sets</em>
+            become ordinary <em>arithmetic</em> on these answers.
+        </p>
+        <p>
+            Take two sets \(A\) and \(B\). A point belongs to the intersection \(A \cap B\) when both
+            answers are \(1\), and multiplication detects exactly that:
+        </p>
+        \[ \chi_{A \cap B} = \chi_A \, \chi_B , \]
+        <p>
+            since a product of zeros and ones equals \(1\) only when every factor is \(1\). Multiplication
+            is the word <em>and</em>. Negation is just as neat: the complement of \(A\) (everything
+            <em>not</em> in \(A\)) has indicator
+        </p>
+        \[ \chi_{A^{c}} = 1 - \chi_A , \]
+        <p>
+            which flips \(0 \leftrightarrow 1\). Subtraction is the word <em>not</em>. And what about
+            <em>or</em> — the union \(A \cup B\)? A first guess, \(\chi_A + \chi_B\), almost works, but it
+            pays double in the overlap where both answers are \(1\). The correction is to refund the
+            overlap:
+        </p>
+        \begin{equation}
+        \chi_{A \cup B} = \chi_A + \chi_B - \chi_A \chi_B .
+        \label{eq:union}
+        \end{equation}
+        <p>
+            Finally, carving \(B\) out of \(A\) (the difference \(A - B\)) means “in \(A\) <em>and not</em>
+            in \(B\),” and the dictionary translates it mechanically:
+        </p>
+        \begin{equation}
+        \chi_{A - B} = \chi_A \, (1 - \chi_B).
+        \label{eq:diff}
+        \end{equation}
+
+        <aside class="note">
+            <h4>Where you have met this before</h4>
+            <p>
+                Formula \(\eqref{eq:union}\) should ring a bell if you have studied probability: it is the
+                shadow of the inclusion–exclusion rule \(P(A \cup B) = P(A) + P(B) - P(A \cap B)\). And the
+                whole dictionary — <em>and</em> is \(\times\), <em>not</em> is \(1 - {}\) — is precisely how
+                George Boole arithmetized logic in the 1850s. Blending shapes and blending truth values
+                are, at bottom, the same trade.
+            </p>
+        </aside>
+
+        <p>
+            One more ingredient connects this to the implicit shapes of Section 1. Our primitive solids all
+            have the form “the region where some smooth function \(f\) is positive”:
+        </p>
+        \[
+        P_f = \{\, p \;:\; f(p) \ge 0 \,\}, \qquad\text{e.g.}\quad
+        f(x,y,z) = 1 - x^2 - y^2 - z^2 \ \text{for the ball.}
+        \]
+        <p>
+            To get the indicator of \(P_f\) we simply post-process \(f\) with the <em>Heaviside step
+            function</em> \(H\), which crushes every positive number to \(1\) and every negative number to
+            \(0\):
+        </p>
+        \[
+        \chi_{P_f} = H \circ f, \qquad
+        H(s) = \begin{cases} 1 &amp; s \ge 0,\\ 0 &amp; s &lt; 0. \end{cases}
+        \]
+        <p>
+            Now we hold a complete toolkit. Want the region inside the ball <em>and</em> above the floor?
+            Multiply their two indicators. Want the union of two cylinders? Use formula
+            \(\eqref{eq:union}\). Any finite sentence made of <em>and</em>, <em>or</em>, <em>not</em>
+            applied to primitive shapes becomes one explicit formula. Engineers know this game as
+            <em>constructive solid geometry</em>, and it is how CAD programs think about machine parts.
+        </p>
+        <p>
+            There is only one problem, and it is the interesting one: everything so far has <em>sharp
+            edges</em>.
+        </p>
+
+        <h2>3. The softness knob</h2>
+
+        <p>
+            The Heaviside function is a cliff. It jumps from \(0\) to \(1\) with no warning, and every
+            shape assembled from it inherits creases, corners, and seams. Sometimes that is what you want
+            (a machined bracket); often it is not (a living form, a worn pebble, a doughnut). Calculus also
+            despises jumps: you cannot differentiate a cliff.
+        </p>
+        <p>
+            The remedy is to replace the cliff by a ramp. Define, for each \(k &gt; 0\), the
+            <em>sigmoid</em>
+        </p>
+        \[ \Hk(s) = \frac{1}{1 + e^{-s/k}} . \]
+        <p>
+            Figure 1 shows the whole family. Each \(\Hk\) climbs smoothly from \(0\) to \(1\); the
+            parameter \(k\) decides how briskly. For large \(k\) the climb is leisurely; as \(k \to 0\) the
+            ramp steepens and the family closes in on the Heaviside cliff. Two features deserve a pin in
+            them:
+        </p>
+        <ul>
+            <li>every curve in the family passes through the same point \(\bigl(0, \half\bigr)\), and</li>
+            <li>\(\Hk\) never actually equals \(0\) or \(1\) — it hedges, answering “\(0.93\)” or
+                “\(0.02\)” instead of yes or no.</li>
+        </ul>
+
+        <figure>
+            <img src="/writing/figures/sigmoids.png"
+                 alt="The sigmoid family for decreasing values of k, converging to the Heaviside step">
+            <figcaption>
+                <span class="figure-label">Figure 1.</span> The sigmoid family
+                \(\Hk(s) = 1/(1+e^{-s/k})\) for values of \(k\) from \(1\) (lightest) down to \(0.02\)
+                (darkest). As \(k \to 0\) the sigmoids converge to the Heaviside step. All of them cross
+                the value \(\half\) at \(s = 0\) — the fact the whole method hangs on.
+            </figcaption>
+        </figure>
+
+        <p>
+            Now redo Section 2 with the cliff swapped for the ramp. For a shape \(P_f\) we define its
+            <em>smooth indicator</em>
+        </p>
+        \[ H_{f,k} = \Hk \circ f, \]
+        <p>
+            a function that no longer answers the membership question with a curt yes/no but with a
+            <em>score</em>: close to \(1\) deep inside the shape, close to \(0\) far outside, and gliding
+            smoothly through \(\half\) as you cross the old boundary \(f = 0\). Figure 2 shows the score
+            function of an elliptical disk for two settings of \(k\): each is a plateau of height \(1\)
+            with softened shoulders, and the smaller \(k\) is, the more the plateau looks like a mesa with
+            vertical cliffs.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/mound_soft.png"
+                         alt="Score landscape of an elliptical disk with k = 1/2">
+                    <div class="subcaption">(a) \(k = 1/2\): gentle shoulders.</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/mound_sharp.png"
+                         alt="Score landscape of an elliptical disk with k = 1/10">
+                    <div class="subcaption">(b) \(k = 1/10\): nearly a mesa.</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 2.</span> The smooth indicator \(H_{f,k}\) of the
+                elliptical disk \(f(x,y) = 1 - (x/2)^2 - y^2 \geq 0\), drawn as a landscape over the plane.
+                Height is the membership score, from \(0\) (out) to \(1\) (in).
+            </figcaption>
+        </figure>
+
+        <p>
+            Here is the beautiful part. The blending formulas \(\eqref{eq:union}\)–\(\eqref{eq:diff}\)
+            never asked their inputs to be exact zeros and ones — they are plain arithmetic and accept
+            scores just as happily. Feed them two smooth indicators \(H_{f,k}\) and \(H_{g,k}\) and they
+            return smooth score-landscapes for the union, the intersection, and the difference of the two
+            shapes. Figure 3 shows all three for a pair of overlapping disks: a two-humped massif, a slim
+            central peak, and a crescent-shaped ridge. No creases anywhere — the arithmetic has melted
+            them.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/bool_union.png" alt="Score landscape of a blended union">
+                    <div class="subcaption">(a) union: \(H_f + H_g - H_f H_g\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/bool_inter.png"
+                         alt="Score landscape of a blended intersection">
+                    <div class="subcaption">(b) intersection: \(H_f H_g\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/bool_diff.png"
+                         alt="Score landscape of a blended difference">
+                    <div class="subcaption">(c) difference: \(H_f (1 - H_g)\)</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 3.</span> Score landscapes for two overlapping disks of
+                radius \(1\) centered at \((\pm 3/4, 0)\), with \(k = 1/4\). (Subscripts \(k\) dropped to
+                reduce clutter.)
+            </figcaption>
+        </figure>
+
+        <h2>4. Cut at half height</h2>
+
+        <p>
+            A landscape of scores is lovely, but we were promised <em>shapes</em>. How do we climb back
+            down? Remember the pinned fact: every sigmoid crosses \(\half\) exactly at \(s = 0\).
+            Consequently the score \(H_{f,k}\) equals \(\half\) exactly where \(f = 0\) — that is, exactly
+            on the boundary of the original shape, whatever the value of \(k\). So the rule is:
+        </p>
+        <p class="text-center"><em>slice the score landscape at height \(\half\),<br>
+            and keep everything above the cut.</em></p>
+        <p>
+            For a single primitive this recovers the original circle, sphere, or cylinder without a hair
+            out of place. For a <em>blend</em> it does something better: the half-height contour of, say,
+            \(H_f + H_g - H_f H_g\) is <em>not</em> the sharp-cornered outline of the set-union — it is a
+            smoothed compromise, a curve that hugs the union at a distance and rounds off its crevices.
+            That is a feature, not a bug: it is the mathematical version of running your thumb along the
+            seam between two lumps of clay. Figure 4 shows the three half-height curves from the landscapes
+            of Figure 3, with the original “ingredient” circles dashed underneath.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/level_union.png" alt="Half-height contour of the blended union">
+                    <div class="subcaption">(a) union</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/level_inter.png"
+                         alt="Half-height contour of the blended intersection">
+                    <div class="subcaption">(b) intersection</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/level_diff.png"
+                         alt="Half-height contour of the blended difference">
+                    <div class="subcaption">(c) difference</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 4.</span> Cutting the landscapes of Figure 3 at height
+                \(\half\) yields smooth blended curves (solid). The dashed circles are the two ingredients.
+                Note how the union bulges to swallow the corner where the circles cross, and the difference
+                scoops a rounded bite.
+            </figcaption>
+        </figure>
+
+        <p>
+            The knob \(k\) now has a direct sculptural meaning: it is the <em>radius of your thumb</em>.
+            Figure 5 makes the point in 3D by uniting two balls three times, with three settings of \(k\).
+            Small \(k\) gives a crisp weld line; medium \(k\) melts a graceful neck between the balls;
+            large \(k\) fuses them into a single pebble. Readers who remember lava lamps, or the
+            liquid-metal villain of a certain 1991 film, have seen this aesthetic before: computer graphics
+            people call such objects <em>metaballs</em> or <em>blobby models</em>, and they are blends of
+            exactly this kind.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/merge_a.png" alt="Union of two balls blended with k = 0.03">
+                    <div class="subcaption">(a) \(k = 0.03\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/merge_b.png" alt="Union of two balls blended with k = 0.15">
+                    <div class="subcaption">(b) \(k = 0.15\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/merge_c.png" alt="Union of two balls blended with k = 0.4">
+                    <div class="subcaption">(c) \(k = 0.4\)</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 5.</span> The union of two overlapping balls at three
+                settings of the softness knob. The surfaces drawn are the points where the blended score
+                equals \(\half\).
+            </figcaption>
+        </figure>
+
+        <p>
+            From here on, every picture in this article is obtained the same way: write down score
+            functions for a few primitives, combine them with the arithmetic of Section 2, and draw the set
+            of points where the final score equals \(\half\). One formula per object, as promised.
+        </p>
+
+        <h2>5. A double doughnut from scratch</h2>
+
+        <p>
+            Time to build something with real topology: a surface with <em>two</em> holes. The recipe has
+            three lines.
+        </p>
+        <p>
+            <em>Step 1: the body.</em> Take two flattened ellipsoids, side by side and slightly
+            overlapping — the regions where
+        </p>
+        \[
+        e_{\pm}(x,y,z) \;=\; 1 - \Bigl(\frac{x \mp 1}{1.15}\Bigr)^{2} - y^{2}
+        - \Bigl(\frac{z}{0.55}\Bigr)^{2} \;\ge\; 0 .
+        \]
+        <p>
+            Blend their scores with the union formula; the result is a smooth, pillow-like slab with a
+            waist (the blue body in Figure 6).
+        </p>
+        <p>
+            <em>Step 2: the drills.</em> Take two vertical cylinders of radius \(0.42\) through the centers
+            of the ellipsoids:
+        </p>
+        \[ c_{\pm}(x,y,z) \;=\; 0.42^{2} - (x \mp 1)^{2} - y^{2} \;\ge\; 0 , \]
+        <p>
+            again united into a single score function (the orange drills in the same figure).
+        </p>
+        <p>
+            <em>Step 3: drill.</em> Subtract the second score from the first with formula
+            \(\eqref{eq:diff}\) and slice at half height:
+        </p>
+        \[
+        F\,(1 - G) \;=\; \tfrac{1}{2},
+        \qquad
+        \begin{aligned}
+        F &amp;= \text{union score of the two ellipsoids},\\
+        G &amp;= \text{union score of the two cylinders}.
+        \end{aligned}
+        \]
+
+        <figure>
+            <img src="/writing/figures/double_torus_parts.png"
+                 alt="Two blended ellipsoids in translucent blue with two blended cylinders in orange">
+            <figcaption>
+                <span class="figure-label">Figure 6.</span> The ingredients: two blended ellipsoids
+                (translucent blue) and two blended cylinders standing in for drill bits (orange).
+            </figcaption>
+        </figure>
+
+        <figure>
+            <img src="/writing/figures/double_torus.png"
+                 alt="The finished double torus, a genus-two surface">
+            <figcaption>
+                <span class="figure-label">Figure 7.</span> The finished double torus: ellipsoids united,
+                cylinders subtracted, everything blended with \(k = 0.18\). One equation.
+            </figcaption>
+        </figure>
+
+        <p>
+            The result (Figure 7) is the <em>double torus</em>, the mathematician’s genus-two surface, with
+            both tunnels smoothly flared as if the object had been cast in one piece. Written out in full,
+            its equation would sprawl across half a page of exponentials — but we never need to see it, any
+            more than a baker needs to see the chemical formula of a croissant. The recipe <em>is</em> the
+            understanding.
+        </p>
+
+        <h2>6. The coffee-mug theorem</h2>
+
+        <p>
+            There is an old joke that a topologist is someone who cannot tell a coffee mug from a doughnut:
+            each has exactly one hole (the handle, the hole), so each can be kneaded into the other without
+            tearing. Let us take the joke literally and <em>manufacture</em> the mug.
+        </p>
+        <p>
+            <em>The blank.</em> Intersect an infinite vertical cylinder of radius \(1\) with the slab
+            \(-1 \le z \le 1\). Multiplying the two scores gives a solid puck.
+        </p>
+        <p>
+            <em>The hollow.</em> Take a thinner cylinder, radius \(0.8\), but cut it off below \(z = -0.7\)
+            (intersect with the half-space \(z \ge -0.7\)). Subtract it from the puck. What remains is a
+            cup: walls, a floor, and nothing where the coffee goes.
+        </p>
+        <p>
+            <em>The handle.</em> Take a torus (a doughnut of tube radius \(0.18\)), stand it upright, and
+            press it into the side wall. The union formula welds it on, and because sigmoids never quite
+            reach \(0\) or \(1\), the weld is a smooth fillet rather than a seam — exactly where a potter
+            would smear the clay with a wet finger.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div style="flex: 1.3 1 0;">
+                    <img src="/writing/figures/mug.png" alt="A coffee mug with a handle, defined implicitly">
+                    <div class="subcaption">(a) \(\bigl(\text{puck} - \text{hollow}\bigr) \cup
+                        \text{handle}\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/donut.png" alt="A torus, the mug's topological twin">
+                    <div class="subcaption">(b) its topological twin</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 8.</span> The coffee-mug theorem, constructively. Both
+                objects are single equations, and both have genus one: exactly one hole apiece.
+            </figcaption>
+        </figure>
+
+        <p>
+            Figure 8 shows the result next to its doughnut twin. Count holes: the mug’s cavity does not
+            count (a dent, however deep, can be pressed flat), but the handle’s loop does. One hole each.
+            The joke checks out, and we built both punchlines out of sigmoids.
+        </p>
+
+        <aside class="note">
+            <h4>Genus, or how mathematicians count holes</h4>
+            <p>
+                The <em>genus</em> of a closed surface is the number of independent loops you can cut along
+                without disconnecting it — informally, its number of “handles.” Sphere: genus \(0\). Torus
+                and mug: genus \(1\). Our double doughnut: genus \(2\). A remarkable nineteenth-century
+                theorem says that genus is the <em>only</em> thing that matters: two closed orientable
+                surfaces can be deformed into one another exactly when their genus agrees. Everything
+                else — size, dents, flourishes — is negotiable.
+            </p>
+        </aside>
+
+        <h2>7. A die you could actually roll</h2>
+
+        <p>
+            Sharp objects are in reach too — and here the “flaw” of blending becomes its best feature. A
+            cube is the intersection of six half-spaces: left of this wall, right of that one, below the
+            ceiling, above the floor, and so on. Multiply the six scores. With a small \(k\) the result is
+            practically a machinist’s cube; with a moderate \(k\) (we used \(k = 0.12\)) the corners and
+            edges come out <em>rounded</em>, because near an edge two scores are simultaneously hedging and
+            their product dips below \(\half\) a little early. A manufacturer would pay extra for that:
+            real dice are tumbled precisely to round their edges.
+        </p>
+        <p>
+            The pips are twenty-one little balls (that is \(1+2+\dots+6\)), each centered <em>on</em> a face
+            so that half of it pokes into the cube, all subtracted in one long chain of formula
+            \(\eqref{eq:diff}\). Each subtraction carves a neat hemispherical dimple. Figure 9 shows the
+            result — the faces \(1\), \(2\) and \(3\) are visible, and opposite faces sum to seven, as
+            regulation demands.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/dice.png" alt="A rounded die with hemispherical pips">
+            <figcaption>
+                <span class="figure-label">Figure 9.</span> One equation, twenty-seven primitives: six
+                half-spaces multiplied together (\(k=0.12\) rounds the edges for free) minus twenty-one
+                pip-balls.
+            </figcaption>
+        </figure>
+
+        <p>
+            It is worth pausing on what we have <em>not</em> done. There is no list of vertices in this
+            die, no mesh, no seams between “faces.” There is one smooth function of \((x,y,z)\), and the
+            die is where that function exceeds one half. Roll it in your mind along any direction: every
+            point of the surface answers to the same single formula.
+        </p>
+
+        <h2>8. Bending space itself</h2>
+
+        <p>
+            So far we have combined shapes while leaving space alone. The second technique of our title
+            does the opposite: leave the shape’s formula alone and <em>warp the space it lives in</em>.
+        </p>
+        <p>
+            The principle fits in one line. Suppose a shape is carved out by the inequality
+            \(f(p) \ge \half\), and suppose \(T\) is a transformation that moves points of space around.
+            Then
+        </p>
+        \[ \boxed{\;\text{the warped shape is carved out by } f\bigl(T^{-1}(p)\bigr) \ge \half .\;} \]
+        <p>
+            Why the <em>inverse</em>? Because to decide whether a point \(p\) belongs to the warped object,
+            we send \(p\) <em>back</em> to where it came from and ask the original formula there. (If a
+            moving company shifts your house three meters east, your old floor plan still answers
+            questions — provided you first walk three meters west while holding it.)
+        </p>
+        <p>
+            You have used special cases forever. Replacing \(x\) by \(x - 3\) <em>moves</em> a graph three
+            units right; replacing \(x\) by \(x/2\) <em>stretches</em> it to double width. These are the
+            <em>affine</em> transformations: translations, rotations, scalings, shears. They are loyal but
+            predictable — straight lines stay straight.
+        </p>
+        <p>
+            The fun begins when the amount of transformation <em>depends on where you are</em>. Three
+            classics, applied to a rounded bar in Figure 10:
+        </p>
+        <ul>
+            <li><strong>Wave.</strong> Replace \(x\) by \(x - 0.35\sin(2.2\,z)\): each horizontal slice
+                slides sideways by an amount that oscillates with height. The bar sways like seaweed.</li>
+            <li><strong>Taper.</strong> Replace \(x, y\) by \(x/s(z),\, y/s(z)\) with
+                \(s(z) = 1 - 0.28\,z\): each slice is scaled by a factor that shrinks with height. The bar
+                becomes an obelisk.</li>
+            <li><strong>Twist.</strong> Rotate each slice by an angle proportional to its height — replace
+                \((x, y)\) by \(\bigl(x\cos\alpha z + y\sin\alpha z,\; -x\sin\alpha z + y\cos\alpha
+                z\bigr)\). The bar becomes barley sugar.</li>
+        </ul>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/deform_none.png" alt="An undeformed blended bar">
+                    <div class="subcaption">(a) the bar</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/deform_wave.png" alt="The bar deformed by a wave">
+                    <div class="subcaption">(b) waved</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/deform_taper.png" alt="The bar deformed by a taper">
+                    <div class="subcaption">(c) tapered</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/deform_twist.png" alt="The bar deformed by a twist">
+                    <div class="subcaption">(d) twisted</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 10.</span> Global deformations of a blended bar (itself
+                the intersection of six soft half-spaces). In each case the bar’s formula is untouched; we
+                only substitute new expressions for \(x\), \(y\), \(z\) before asking it the membership
+                question.
+            </figcaption>
+        </figure>
+
+        <p>
+            Note what the box above buys us: the warped objects are <em>still single equations</em> — we
+            literally substitute the new expressions into the old formula. Blending and warping therefore
+            compose freely, and this freedom is where the sculpting gets luxurious. As a finale, take an
+            ordinary torus but flatten its circular cross-section into a thin blade; then let the blade’s
+            tilt angle <em>depend on the azimuth</em> — as you travel once around the ring, the
+            cross-section rotates once about the ring’s core. The result (Figure 11) is a twisted ribbon of
+            a doughnut, the kind of object you would swear needed an artist and a 3D-modeling package. It
+            is four lines of substitutions.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/finale.png"
+                 alt="A torus with a flattened cross-section that rotates once around the ring">
+            <figcaption>
+                <span class="figure-label">Figure 11.</span> Finale: a torus with a flattened cross-section
+                that rotates once as it travels around the ring — a warp whose rotation angle depends on the
+                azimuth. Still one equation.
+            </figcaption>
+        </figure>
+
+        <aside class="note">
+            <h4>Where these ideas live in the wild</h4>
+            <p>
+                Blending indicator functions is the mathematical backbone of <em>implicit modeling</em> in
+                computer graphics: James Blinn introduced “blobby” molecular surfaces in 1982, and modern
+                signed-distance-field renderers on
+                <a href="https://www.shadertoy.com" target="_blank" rel="noopener noreferrer">Shadertoy</a>
+                sculpt entire worlds this way, in real time, inside your browser. The global bends, tapers
+                and twists were catalogued for graphics by Alan Barr in 1984 and are now standard
+                “deformers” in every animation package. The pictures in this article were extracted from
+                their equations by <em>marching cubes</em> (Lorensen &amp; Cline, 1987), the workhorse
+                algorithm that also turns MRI scans into 3D anatomy.
+            </p>
+        </aside>
+
+        <h2>9. Sculpt your own</h2>
+
+        <p>
+            Every figure here was produced with a small open-source Python package,
+            <a href="https://github.com/valerocar/geometry-blender" target="_blank"
+               rel="noopener noreferrer"><code>gblend</code></a>, which makes the blending arithmetic feel
+            like set theory: the Python operators <code>&amp;</code>, <code>|</code> and <code>-</code> are
+            wired to the product, the inclusion–exclusion formula, and the carve-out formula of Section 2.
+            The double torus of Figure 7, in its entirety:
+        </p>
+
+<pre><code>from gblend.geometry import Ball3D, Cylinder3D
+
+k = 0.18
+e1 = Ball3D(k=k); e1.scale(1.15, 1, 0.55); e1.translate(-1, 0, 0)
+e2 = Ball3D(k=k); e2.scale(1.15, 1, 0.55); e2.translate(+1, 0, 0)
+c1 = Cylinder3D(x0=-1, r_val=0.42, k=k)
+c2 = Cylinder3D(x0=+1, r_val=0.42, k=k)
+
+double_torus = (e1 | e2) - (c1 | c2)   # blend, then drill
+</code></pre>
+
+        <p>
+            The mesh is extracted with <code>scikit-image</code>’s marching cubes and rendered with
+            <code>plotly</code> — free tools, a laptop, no licenses. Install <code>gblend</code> with
+            <code>pip</code>, then run the article’s script <code>make_figures.py</code> to reproduce every
+            image.
+        </p>
+        <p>
+            Beyond the fun, there is a moral. We usually meet functions as graphs to be plotted and
+            formulas as things to be solved. Here they played a different role: a formula was a
+            <em>material</em> — something to be cast, carved, welded and twisted. The dictionary was small
+            (multiply for <em>and</em>, flip for <em>not</em>, refund the overlap for <em>or</em>, soften
+            the step, cut at one half, warp with a substitution), yet it was enough to make a mug, a die,
+            and a two-holed doughnut out of thin air. Pick a shape on your desk and ask: what is <em>its</em>
+            equation? You now own every tool needed to answer.
+        </p>
+
+        <hr class="section-break">
+
+        <h3>Further reading</h3>
+        <ul class="writing-refs">
+            <li>J. Blinn, <em>A generalization of algebraic surface drawing</em>, ACM Transactions on
+                Graphics 1 (1982) — the birth of blobby modeling.</li>
+            <li>A. Barr, <em>Global and local deformations of solid primitives</em>, SIGGRAPH (1984) —
+                bends, tapers and twists.</li>
+            <li>W. Lorensen and H. Cline, <em>Marching cubes</em>, SIGGRAPH (1987) — from equations to
+                triangles.</li>
+            <li>A. Ricci, <em>A constructive geometry for computer graphics</em>, The Computer Journal 16
+                (1973) — blending unions and intersections before it was cool.</li>
+        </ul>
+
+        <p class="writing-links">
+            <a href="/writing/pdf/sculpting-with-equations.pdf">Download the PDF</a> &middot;
+            <a href="https://github.com/valerocar/geometry-blender" target="_blank"
+               rel="noopener noreferrer">geometry-blender on GitHub</a> &middot;
+            <a href="/writing.html">All writing</a>
+        </p>
+    </article>
+    <br>
+    <script id="replace_with_footer" src="/footer.js"></script>
+    <br>
+    <br>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -77,3 +77,267 @@ a:hover {
     margin: 0px;
 }
 
+
+/* ---------------------------------------------------------------
+   Writing: index of entries and long-form article pages
+   --------------------------------------------------------------- */
+
+.writing-list {
+    max-width: 52rem;
+}
+
+.writing-entry {
+    padding: 1.5rem 0;
+    border-bottom: 1px solid rgba(44, 82, 130, 0.15);
+}
+
+.writing-entry:last-child {
+    border-bottom: 0;
+}
+
+.writing-entry h2 {
+    font-size: 21px;
+    font-weight: 400;
+    margin-bottom: 0.35rem;
+}
+
+.writing-entry h2 a {
+    text-decoration: none;
+}
+
+.writing-entry h2 a:hover {
+    text-decoration: underline;
+}
+
+.writing-entry .writing-subtitle {
+    font-size: 16px;
+    font-style: italic;
+    color: #555;
+    margin-bottom: 0.6rem;
+}
+
+.writing-entry .writing-meta {
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #777;
+}
+
+.writing-entry .writing-thumb {
+    width: 100%;
+    max-width: 220px;
+    height: auto;
+}
+
+/* --- article page --- */
+
+.writing-article {
+    max-width: 40rem;
+    margin: 0 auto;
+    font-size: 17px;
+    line-height: 1.65;
+}
+
+.writing-article p,
+.writing-article li {
+    font-size: 17px;
+    font-weight: 300;
+    line-height: 1.65;
+}
+
+.writing-article h1 {
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 1.25;
+    margin-bottom: 0.5rem;
+}
+
+.writing-article h2 {
+    font-size: 21px;
+    font-weight: 600;
+    margin-top: 2.6rem;
+    margin-bottom: 0.9rem;
+}
+
+.writing-article h3 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-top: 1.8rem;
+    margin-bottom: 0.6rem;
+}
+
+.writing-article .writing-lede {
+    font-size: 19px;
+    font-style: italic;
+    color: #444;
+    line-height: 1.5;
+    margin-bottom: 1.2rem;
+}
+
+.writing-article .writing-byline {
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 0.25rem;
+}
+
+.writing-article .writing-abstract {
+    font-size: 16px;
+    color: #333;
+    border-left: 3px solid rgba(44, 82, 130, 0.3);
+    padding-left: 1.1rem;
+    margin: 1.8rem 0 2.4rem;
+}
+
+.writing-article .writing-abstract p {
+    font-size: 16px;
+    margin-bottom: 0;
+}
+
+.writing-article figure {
+    margin: 2.2rem 0;
+}
+
+.writing-article figure img {
+    width: 100%;
+    height: auto;
+}
+
+.writing-article figcaption {
+    font-size: 14px;
+    line-height: 1.5;
+    color: #555;
+    margin-top: 0.7rem;
+}
+
+.writing-article figcaption .figure-label {
+    font-weight: 600;
+    color: #333;
+}
+
+.writing-article .figure-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.9rem;
+}
+
+.writing-article .figure-row > div {
+    flex: 1 1 0;
+    min-width: 150px;
+    text-align: center;
+}
+
+.writing-article .figure-row > div img {
+    width: 100%;
+    height: auto;
+}
+
+.writing-article .figure-row .subcaption {
+    font-size: 13px;
+    color: #666;
+    margin-top: 0.3rem;
+}
+
+.writing-article aside.note {
+    background: rgba(44, 82, 130, 0.04);
+    border: 1px solid rgba(44, 82, 130, 0.18);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+    margin: 2rem 0;
+}
+
+.writing-article aside.note h4 {
+    font-size: 15px;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    margin-bottom: 0.5rem;
+}
+
+.writing-article aside.note p {
+    font-size: 15.5px;
+    margin-bottom: 0;
+}
+
+.writing-article .statement {
+    margin: 1.6rem 0;
+    padding-left: 1.1rem;
+    border-left: 3px solid rgba(44, 82, 130, 0.25);
+}
+
+.writing-article .statement .statement-head {
+    font-weight: 600;
+}
+
+.writing-article .statement.theorem,
+.writing-article .statement.lemma,
+.writing-article .statement.corollary {
+    font-style: italic;
+}
+
+.writing-article .proof {
+    margin: 1.2rem 0 1.8rem;
+}
+
+.writing-article .proof .statement-head {
+    font-style: italic;
+}
+
+.writing-article pre {
+    background: #f7f7f5;
+    border: 1px solid rgba(0, 0, 0, 0.12);
+    border-radius: 4px;
+    padding: 0.9rem 1.1rem;
+    font-size: 13.5px;
+    line-height: 1.5;
+    overflow-x: auto;
+}
+
+.writing-article code {
+    font-size: 0.92em;
+    color: #2c5282;
+}
+
+.writing-article pre code {
+    color: #333;
+}
+
+.writing-article .writing-links {
+    margin: 2rem 0;
+    font-size: 15px;
+}
+
+.writing-article .writing-refs {
+    font-size: 14.5px;
+    color: #444;
+    margin-top: 1rem;
+}
+
+.writing-article .writing-refs li {
+    font-size: 14.5px;
+    margin-bottom: 0.4rem;
+}
+
+.writing-article hr.section-break {
+    width: 30%;
+    margin: 2.6rem auto;
+}
+
+.writing-article mjx-container[display="true"] {
+    overflow-x: auto;
+    overflow-y: hidden;
+    padding: 0.2rem 0;
+}
+
+@media (max-width: 767.98px) {
+    .writing-article {
+        font-size: 16px;
+    }
+
+    .writing-article p,
+    .writing-article li {
+        font-size: 16px;
+    }
+
+    .writing-article h1 {
+        font-size: 25px;
+    }
+}

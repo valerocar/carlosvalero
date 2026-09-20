@@ -1,0 +1,8 @@
+# Article sources and build artifacts live here but are not published.
+# Only the web assets copied into writing/ are served.
+blogs/
+
+# Editor and OS cruft
+.idea/
+.DS_Store
+*.swp

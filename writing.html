@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="Notes and expository articles by Carlos Valero on geometry, implicit surfaces, blending and topology.">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <title>Writing — Carlos Valero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/cv.png">
+</head>
+
+<body>
+<script id="replace_with_navbar" src="/nav.js"></script>
+<br>
+<br>
+<h1> Writing</h1>
+<br>
+<hr class="mt-2 mb-3"/>
+<br>
+<div class="container">
+    <div class="writing-list">
+        <p>
+            Expository notes on geometry and topology. Each one is also available as a PDF, and the
+            code that produced the figures is open source.
+        </p>
+
+        <div class="writing-entry row align-items-center">
+            <div class="col-md-8 order-md-1 order-2">
+                <h2><a href="/writing/sculpting-with-equations.html">Sculpting with Equations</a></h2>
+                <p class="writing-subtitle">
+                    How to build a coffee mug, a die, and a two-holed doughnut out of a single formula
+                </p>
+                <p>
+                    Set operations become ordinary arithmetic once a shape is replaced by its indicator
+                    function; softening the step function into a sigmoid turns that arithmetic into a
+                    sculptor’s thumb. A tour of implicit modelling, from Boolean algebra to a genus-two
+                    surface, with every figure generated in Python.
+                </p>
+                <p class="writing-meta">
+                    Article &middot; <a href="/writing/pdf/sculpting-with-equations.pdf">PDF</a> &middot;
+                    <a href="https://github.com/valerocar/geometry-blender" target="_blank"
+                       rel="noopener noreferrer">Code</a>
+                </p>
+            </div>
+            <div class="col-md-4 order-md-2 order-1 text-center">
+                <a href="/writing/sculpting-with-equations.html">
+                    <img src="/writing/figures/mug.png" class="writing-thumb"
+                         alt="A coffee mug defined by a single equation">
+                </a>
+            </div>
+        </div>
+
+        <div class="writing-entry row align-items-center">
+            <div class="col-md-8 order-md-1 order-2">
+                <h2><a href="/writing/turning-number.html">The turning number of a planar closed curve</a></h2>
+                <p class="writing-subtitle">
+                    and height functions
+                </p>
+                <p>
+                    A short note showing that the turning number of a closed plane curve can be read off
+                    from the signs of its curvature at the critical points of any height function —
+                    count the critical points, add their signs, divide by two.
+                </p>
+                <p class="writing-meta">
+                    Note &middot; <a href="/writing/pdf/turning-number.pdf">PDF</a>
+                </p>
+            </div>
+            <div class="col-md-4 order-md-2 order-1 text-center">
+                <a href="/writing/turning-number.html">
+                    <img src="/writing/figures/critical-heights.png" class="writing-thumb"
+                         alt="Critical heights of a closed plane curve with respect to a line">
+                </a>
+            </div>
+        </div>
+    </div>
+    <br>
+    <br>
+    <script id="replace_with_footer" src="/footer.js"></script>
+    <br>
+    <br>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
