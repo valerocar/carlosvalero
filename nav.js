@@ -1,5 +1,8 @@
 fetch('/nav.html')
-.then(res => res.text())
+.then(res => {
+    if (!res.ok) throw new Error("nav.html: " + res.status);
+    return res.text();
+})
 .then(text => {
     let oldelem = document.querySelector("script#replace_with_navbar");
     let newelem = document.createElement("div");
@@ -16,3 +19,4 @@ fetch('/nav.html')
         }
     });
 })
+.catch(err => console.error("navbar not loaded:", err))
