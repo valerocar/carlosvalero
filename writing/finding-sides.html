@@ -1,0 +1,464 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="What makes a face a face? Clustering a surface in position and direction at once, with a product kernel that keeps millimetres and degrees in separate columns.">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <title>Finding the Sides of Things — Carlos Valero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/cv.png">
+    <script src="/writing/mathjax.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+<script id="replace_with_navbar" src="/nav.js?v=2"></script>
+<br>
+<div class="container">
+    <article class="writing-article">
+        <p class="writing-meta"><a href="/writing.html">&larr; Writing</a></p>
+        <h1>Finding the Sides of Things</h1>
+        <p class="writing-lede">
+            What makes a face a face — and why millimetres and degrees must never share a ruler
+        </p>
+        <p class="writing-byline">Carlos Valero Valdés</p>
+
+        <div class="writing-abstract">
+            <p>
+                Look at a staircase and you have no trouble saying it has ten sides. Ask a computer, and
+                the question turns out to have two halves that pull in different directions. A side is a
+                patch where the surface points the same way — that is a statement about
+                <em>direction</em>. But two treads point the same way and are still two sides — that is a
+                statement about <em>position</em>. Getting both at once means clustering in two spaces
+                simultaneously, and the moment you try, you hit a small scandal: a distance in
+                millimetres and a distance in degrees cannot be added. The fix is a product kernel with
+                one bandwidth per factor, and it is worth seeing what happens to people who skip it.
+            </p>
+        </div>
+
+        <h2>1. What is a side?</h2>
+
+        <p>
+            Here is a staircase. Not a real one — a solid with three steps, its edges slightly rounded
+            the way a moulded or machined part’s edges always are.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/sides_part.png"
+                 alt="A three-step staircase solid with slightly rounded edges">
+            <figcaption>
+                <span class="figure-label">Figure 1.</span> Three treads, three risers, a tall face on
+                each side, a back and a bottom: ten sides, and you counted them without being told how.
+                The question is what rule you used.
+            </figcaption>
+        </figure>
+
+        <p>
+            Whatever the rule is, it is not about position alone — a side spans a wide stretch of space,
+            and two adjacent sides meet along an edge where their points are as close together as points
+            can get. And it is not about colour, or curvature, or connectivity. The thing that is constant
+            across a side and changes as you step off it is the direction the surface faces.
+        </p>
+
+        <h2>2. The Gauss map</h2>
+
+        <p>
+            Give every little patch of the surface its outward normal — the unit arrow pointing straight
+            away from it — and you have a map from the object to the unit sphere. It is called the
+            <em>Gauss map</em>, and it is the natural home of the question.
+        </p>
+        <p>
+            Under it, a flat face collapses to a single point: every patch of the top tread has exactly
+            the same normal, so the whole tread lands on the north pole of the sphere and stays there.
+            A rounded edge, by contrast, smears out into an arc, because its normal swings through a
+            quarter turn as you cross it. So on the sphere, flat faces are <em>spikes</em> and roundings
+            are <em>smears</em> — and finding the sides starts to look like finding the spikes.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/sides_normalmap.png"
+                         alt="The staircase with each face coloured by the direction of its normal">
+                    <div class="subcaption">(a) coloured by which way it faces</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_gaussmap.png"
+                         alt="The normals of the staircase plotted as points on a sphere, forming six tight clusters joined by faint arcs">
+                    <div class="subcaption">(b) the same colours, on the sphere</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 2.</span> Left, every facet painted by its normal
+                direction; right, those normals as points on the unit sphere, sampled in proportion to
+                area. Six dense knots — the six directions the staircase’s flats face — joined by thin
+                arcs, which are the rounded edges in transit between them. The knots are what we want.
+            </figcaption>
+        </figure>
+
+        <h2>3. Six knots, ten sides</h2>
+
+        <p>
+            Cluster those normals and you will find six groups, because the staircase’s flats face in
+            only six directions. But the staircase has <em>ten</em> sides. The three treads all face
+            straight up; on the sphere they land on the same spot and are, as far as the Gauss map is
+            concerned, one thing.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/sides_normals_only.png"
+                         alt="All three treads painted the same colour by normal-only clustering">
+                    <div class="subcaption">(a) direction only</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_joint_pair.png"
+                         alt="The three treads painted three different colours by joint clustering">
+                    <div class="subcaption">(b) direction and position</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 3.</span> The three treads, highlighted. Clustering on
+                the sphere alone (left) finds six sides and paints all three treads with one colour: they
+                really are indistinguishable by direction. Adding position (right) gives them three.
+                The rest of the object is greyed out so the treads are easy to follow.
+            </figcaption>
+        </figure>
+
+        <p>
+            The obvious repair is to use position as well — but position alone is no better. Two facets
+            straddling the nose of a step are millimetres apart and belong to different sides; two facets
+            at opposite ends of one tread are far apart and belong to the same one. Neither coordinate
+            works by itself. A side is a cluster in <em>both</em> at once: a patch whose facets agree
+            about direction <em>and</em> sit near one another.
+        </p>
+
+        <h2>4. Two spaces, two rulers</h2>
+
+        <p>
+            So we cluster in the joint space of surface elements: each facet contributes a pair
+            \((p, n)\) — a point in \(\RR^3\) and a point on \(S^2\). To cluster anything, we need to say
+            how much weight a data point at \((p_i, n_i)\) carries as seen from \((p, n)\). Write it as a
+            product:
+        </p>
+        \[
+        K\bigl((p, n), (p_i, n_i)\bigr) \;=\;
+        \underbrace{\exp\!\left(-\frac{\lVert p - p_i \rVert^{2}}{2 h_p^{2}}\right)}_{\text{a length}}
+        \;\cdot\;
+        \underbrace{\exp\!\left(-\frac{\theta(n, n_i)^{2}}{2 h_n^{2}}\right)}_{\text{an angle}} ,
+        \]
+        <p>
+            where \(\theta(n, n_i)\) is the angle between the two normals. The two factors never mix.
+            \(h_p\) is a <em>distance</em>, measured in whatever units the model is in; \(h_n\) is an
+            <em>angle</em>, measured in degrees. Each says something you can state out loud:
+        </p>
+        <ul>
+            <li>\(h_n\) says <strong>how flat is flat</strong> — how far two normals may differ before
+                the patches count as facing different ways.</li>
+            <li>\(h_p\) says <strong>how far is far</strong> — how much space may separate two patches
+                that agree about direction before they count as different sides.</li>
+        </ul>
+        <p>
+            That the kernel factorises is not a convenience. It is the only honest thing to do, because
+            there is no exchange rate between millimetres and degrees. We will come back to what happens
+            to people who invent one.
+        </p>
+
+        <h2>5. Walking uphill</h2>
+
+        <p>
+            With a kernel in hand, <em>mean shift</em> is almost embarrassingly simple. Think of the
+            kernel as smearing each data point into a small mound; the mounds pile up into a landscape,
+            and the peaks of that landscape are the clusters. To find which peak you are under, you climb:
+            replace your current position by the kernel-weighted average of the data around you, and
+            repeat. You drift uphill and stop at the top. Everything that stops at the same summit is one
+            cluster.
+        </p>
+        <p>
+            In the joint space each step does two averages. The position part is an ordinary weighted
+            mean of points in space. The direction part cannot be — the average of two unit arrows is
+            not a unit arrow, and the average of three arrows pointing at three corners of the sphere is
+            a stubby thing pointing nowhere in particular. What you want is the <em>mean direction</em>:
+            add the arrows as vectors and then renormalise to unit length.
+        </p>
+
+        <aside class="note">
+            <h4>Why renormalising is the right averaging</h4>
+            <p>
+                It looks like a fudge, but it is the honest mean. Adding unit vectors and rescaling gives
+                exactly the point of the sphere that minimises the weighted sum of squared straight-line
+                distances to the data — the sphere’s own centre of mass, pushed back out to the surface.
+                There is a purist’s alternative, the Karcher mean, which minimises squared distances
+                measured <em>along</em> the sphere instead of through it. For clusters as tight as the
+                ones here the two agree to about a fiftieth of a degree, which is the sort of difference
+                that vanishes long before it reaches a rendered picture.
+            </p>
+        </aside>
+
+        <figure>
+            <img src="/writing/figures/sides_trajectories.png"
+                 alt="Eighty paths on the sphere, each starting at a scattered normal and converging to one of six modes">
+            <figcaption>
+                <span class="figure-label">Figure 4.</span> Eighty seeds climbing, drawn on the sphere of
+                directions — only the direction half of each path is shown. The pale dots are the data:
+                the staircase’s normals. Each blue trail is one seed walking uphill; the clay dots are
+                where they stop. Seeds that begin on the smeared arcs — the rounded edges — slide off
+                them and fall into whichever flat face is nearer, which is exactly the behaviour you
+                want from a roundover.
+            </figcaption>
+        </figure>
+
+        <p>
+            Run this from every facet, collect the summits, and the staircase comes apart into its
+            sides — ten of them, one colour each.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/sides_joint.png"
+                 alt="The staircase segmented into ten sides, each in a distinct colour">
+            <figcaption>
+                <span class="figure-label">Figure 5.</span> Ten sides, found with \(h_n = 15°\) and
+                \(h_p = 0.35\) in model units. Three treads, three risers, the long face down the near
+                side, the tall back, the far end and the underside. The rounded edges have been absorbed
+                into their neighbours rather than becoming sides of their own.
+            </figcaption>
+        </figure>
+
+        <h2>6. Turning the two knobs</h2>
+
+        <p>
+            Because the bandwidths mean separate things, they can be reasoned about separately — which is
+            the practical payoff of keeping the kernel a product.
+        </p>
+        <p>
+            Open \(h_n\) and the method grows more tolerant about direction. Too tight and the rounded
+            edges stop being transitional and start being sides of their own; too loose and faces that
+            genuinely point different ways get swept together.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/sides_hn_a.png" alt="Segmentation at 5 degrees: thirteen sides">
+                    <div class="subcaption">(a) \(h_n = 5°\) — 13 sides</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_hn_b.png" alt="Segmentation at 15 degrees: ten sides">
+                    <div class="subcaption">(b) \(h_n = 15°\) — 10 sides</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_hn_c.png" alt="Segmentation at 45 degrees: nine sides">
+                    <div class="subcaption">(c) \(h_n = 45°\) — 9 sides</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 6.</span> Sweeping the angular bandwidth with
+                \(h_p\) held at 0.35. At 5° the roundovers survive as slivers of their own; at 15° they
+                are absorbed and the count is right; at 45° the method has stopped caring which way
+                things face and begins merging across corners.
+            </figcaption>
+        </figure>
+
+        <p>
+            Open \(h_p\) and the method grows more tolerant about distance — and here the behaviour at
+            the far end is worth dwelling on. Push \(h_p\) to infinity and the position factor becomes
+            the constant 1: the kernel degenerates into pure direction clustering, and the answer collapses
+            back to the six knots of the Gauss map. Section 3’s failure was never a different method. It
+            was this one, with a knob turned all the way up.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/sides_hp_a.png" alt="Segmentation at position bandwidth 0.22: sixteen sides">
+                    <div class="subcaption">(a) \(h_p = 0.22\) — 16 sides</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_hp_b.png" alt="Segmentation at position bandwidth 0.35: ten sides">
+                    <div class="subcaption">(b) \(h_p = 0.35\) — 10 sides</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_hp_c.png" alt="Segmentation with infinite position bandwidth: six sides">
+                    <div class="subcaption">(c) \(h_p = \infty\) — 6 sides</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 7.</span> Sweeping the position bandwidth with
+                \(h_n\) held at 15°. Too small and single faces fracture into pieces; in the middle the
+                answer is right; at the limit the position factor drops out and only the six directions
+                remain.
+            </figcaption>
+        </figure>
+
+        <h2>7. The trap</h2>
+
+        <p>
+            Now the part that makes the product structure worth insisting on. It is tempting to flatten
+            each facet into a single six-number vector, \((x, y, z, n_x, n_y, n_z)\), hand the pile to an
+            off-the-shelf clustering routine, and give it one bandwidth. People do this. It appears to
+            work.
+        </p>
+        <p>
+            It appears to work because a single bandwidth silently declares an exchange rate: it says that
+            one unit of distance is worth one unit of normal-vector difference. Normals are unit vectors,
+            so their differences are always between 0 and 2, fixed once and for all. Distances are not —
+            they are whatever your file says they are. Load the same part in millimetres instead of
+            centimetres and every position coordinate grows by ten while every normal coordinate stays
+            put. The exchange rate has moved by a factor of ten, and nobody has said anything.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/sides_units_a.png" alt="Single-bandwidth clustering at one scale: ten clusters">
+                    <div class="subcaption">(a) model at scale 1 — 10 clusters</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_units_b.png" alt="Single-bandwidth clustering at four times the scale: 127 clusters, a confetti of fragments">
+                    <div class="subcaption">(b) the same model, ×4 — 127 clusters</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 8.</span> One bandwidth on the six-vector, applied to
+                the same staircase in two sets of units. On the left it happens to give the right answer.
+                On the right, with nothing changed but the number printed on the ruler, it shatters into
+                127 fragments. The product kernel run on the same two models returns identical labels,
+                facet for facet, because scaling the model and scaling \(h_p\) with it leaves the
+                position factor untouched and never touches the angular one at all.
+            </figcaption>
+        </figure>
+
+        <p>
+            The left-hand picture is the dangerous one. A method that is wrong everywhere gets fixed. A
+            method that is meaningless but right on your test file gets shipped.
+        </p>
+
+        <h2>8. Where it runs out</h2>
+
+        <p>
+            Honest accounting. The two bandwidths have to satisfy conflicting demands, and on some objects
+            no value satisfies both. \(h_p\) must be <em>large</em> enough that one face is a single mound
+            rather than a plateau with several bumps — which means comparable to the face’s own width. It
+            must also be <em>small</em> enough to keep two faces that share a normal from merging — which
+            means smaller than the gap between them. If a face is wider than its distance to the next face
+            pointing the same way, there is no such \(h_p\).
+        </p>
+        <p>
+            The bracket from <a href="/writing/orienting-3d-prints.html">the previous article</a> is
+            exactly that case. Its base plate is 1.9 units across, and the arm directly above it is 1.38
+            units away — the face is wider than the gap.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/sides_limit_a.png"
+                         alt="The bracket with a small position bandwidth: the two tops are separate colours but the base top is split in two">
+                    <div class="subcaption">(a) \(h_p = 0.35\) — separate, but the base top splits</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/sides_limit_b.png"
+                         alt="The bracket with a larger position bandwidth: the base top is whole but has merged with the arm top">
+                    <div class="subcaption">(b) \(h_p = 0.7\) — whole, but merged</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 9.</span> The same two upward-facing sides on the
+                bracket, in clay and blue. At \(h_p = 0.35\) they are told apart, but the base plate’s top
+                breaks into two pieces. At \(h_p = 0.7\) the base top is whole again — and has swallowed
+                the arm top, so both are clay. There is no setting that does both, and the staircase works
+                only because every one of its faces is small compared with the distance to the next face
+                facing the same way.
+            </figcaption>
+        </figure>
+
+        <p>
+            There is a second limit in the same family. Mean shift finds peaks, so it can only report a
+            side that <em>has</em> a peak. A ring-shaped face — the top of a plate with a post through the
+            middle — has a hole where its centre should be, and a hole is not a peak. The method reports
+            such a face in pieces, and it is not being stupid: it is answering the question it was asked,
+            which was about the modes of a density and not about connected components of a surface.
+        </p>
+
+        <h2>9. Try it</h2>
+
+        <p>
+            One step of the climb, in full. The weights are the product; the position update is an average;
+            the direction update is an average followed by a renormalisation:
+        </p>
+
+<pre><code>def step(p, n, P, N, w, h_p, h_n):
+    """One mean-shift step from (p, n) through the data (P, N)."""
+    k  = np.exp(-0.5 * ((P - p)**2).sum(1) / h_p**2)      # a length
+    k *= np.exp(-0.5 * (np.arccos((N @ n).clip(-1, 1)) / h_n)**2)   # an angle
+    k *= w                                                 # facet areas
+
+    p_new = (k[:, None] * P).sum(0) / k.sum()              # mean point
+    v     = (k[:, None] * N).sum(0)                        # mean direction,
+    return p_new, v / np.linalg.norm(v)                    #   back on S^2
+</code></pre>
+
+        <p>
+            The two bandwidths appear on two separate lines and are never compared with one another. The
+            accompanying tests check that this is not merely tidy: that the kernel factorises exactly,
+            that renormalising really does minimise what it is supposed to, that an exact cube yields
+            exactly six sides with exactly axis-aligned normals and exactly equal areas, that the
+            staircase yields ten with its treads apart, that normals alone yield six with its treads
+            together, and that rescaling the model leaves every label untouched while the single-bandwidth
+            version goes from eleven clusters to ninety-nine.
+        </p>
+        <p>
+            The moral is about units, and it outlives this problem. Whenever a method wants a distance and
+            your data has parts measured in different things — metres and degrees, dollars and days,
+            pixels and seconds — concatenating them into one vector does not combine them. It hides an
+            arbitrary conversion factor inside a norm, where nobody will look for it. A product of kernels
+            drags the factor into the open and makes you name it, once per space, in the units that space
+            actually uses.
+        </p>
+
+        <hr class="section-break">
+
+        <h3>Further reading</h3>
+        <ul class="writing-refs">
+            <li>D. Comaniciu and P. Meer, <em>Mean shift: a robust approach toward feature space
+                analysis</em>, IEEE PAMI 24 (2002) — the paper that made mean shift standard in vision,
+                including the product-kernel treatment of mixed feature spaces.</li>
+            <li>R. Subbarao and P. Meer, <em>Nonlinear mean shift over Riemannian manifolds</em>,
+                International Journal of Computer Vision 84 (2009) — mean shift when the data lives on a
+                sphere or other manifold rather than in a vector space.</li>
+            <li>K. V. Mardia and P. Jupp, <em>Directional Statistics</em>, Wiley (1999) — the standard
+                reference on means, spreads and densities for data that are directions.</li>
+        </ul>
+
+        <hr class="section-break">
+
+        <p class="writing-hire">
+            I work as an independent consultant helping engineering and computational teams solve
+            difficult problems in geometric modeling, surface processing, and algorithmic design. If your
+            team is tackling a non-trivial spatial or mathematical challenge, reach out directly at
+            <a href="mailto:cvalero@carlosvalero.com">cvalero@carlosvalero.com</a>.
+        </p>
+
+        <p class="writing-links">
+            <a href="/writing.html">All writing</a>
+        </p>
+    </article>
+    <br>
+    <script id="replace_with_footer" src="/footer.js?v=2"></script>
+    <br>
+    <br>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
