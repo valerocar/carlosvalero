@@ -4,9 +4,9 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="description"
-          content="A short note showing how to compute the turning number of a closed plane curve from the signs of its curvature at the critical points of a height function.">
+          content="Walk around any closed loop and you come back facing the way you started, having turned a whole number of times. You can find that number by glancing at a handful of points.">
     <link href="/style.css" rel="stylesheet" type="text/css">
-    <title>The turning number of a planar closed curve — Carlos Valero</title>
+    <title>Which Way Are You Facing? — Carlos Valero</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
           integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -24,241 +24,305 @@
 <div class="container">
     <article class="writing-article">
         <p class="writing-meta"><a href="/writing.html">&larr; Writing</a></p>
-        <h1>The turning number of a planar closed curve and height functions</h1>
-        <p class="writing-byline">
-            Carlos Valero Valdés &middot; Departamento de Matemáticas, Universidad de Guanajuato, México
+        <h1>Which Way Are You Facing?</h1>
+        <p class="writing-lede">
+            How to count the turns of a closed loop by glancing at a handful of points
         </p>
+        <p class="writing-byline">Carlos Valero Valdés</p>
 
         <div class="writing-abstract">
             <p>
-                For a closed planar curve, we show how to compute its turning number (i.e. the winding
-                number of its tangent field) in terms of the signs of the curve’s curvature at the
-                critical heights of the curve with respect to a given line (see Figure 1).
+                Walk all the way around a closed loop and you arrive back facing exactly the way you
+                started — having turned some whole number of times along the way. That number is a
+                genuine property of the loop: stretch it, dent it, wobble it, and the number refuses to
+                budge. Finding it looks like it should require watching yourself continuously, all the
+                way round. It doesn’t. Pick any direction at all, mark the few points where you happen to
+                be travelling crosswise to it, note at each whether you are curving left or right, and do
+                one subtraction. That is the whole method.
             </p>
         </div>
 
+        <h2>1. A walk around a loop</h2>
+
+        <p>
+            Draw a closed curve on paper — any closed curve, so long as it never stops and never has a
+            sharp corner — and imagine walking along it. At every instant you are facing some direction.
+            Set off, keep going, and eventually you arrive back where you started, facing the way you set
+            out.
+        </p>
+        <p>
+            Your heading, meanwhile, has been busy. It swung left through the bulges, swung back right
+            through the dents, and by the time you were home it had come back to where it began. But
+            “back where it began” is not the same as “never moved”: a direction that goes all the way
+            around and returns has made some whole number of complete turns. One, perhaps. Or none. Or
+            two. That count is called the <em>turning number</em> of the curve, and it is the subject of
+            this article.
+        </p>
+
         <figure>
-            <img src="/writing/figures/critical-heights.png"
-                 alt="Critical heights of a closed plane curve with respect to a line, with critical points coloured by the sign of the curvature">
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/turn_walk.png"
+                         alt="A closed curve with the walker's heading drawn as arrows at points around it, shaded light to dark">
+                    <div class="subcaption">(a) the walk</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/turn_compass.png"
+                         alt="The same heading arrows redrawn from a single origin, sweeping once around a circle">
+                    <div class="subcaption">(b) the same headings, on one compass</div>
+                </div>
+            </div>
             <figcaption>
-                <span class="figure-label">Figure 1.</span> Critical heights of a curve (in black) to a
-                line (in orange). At the red critical points the curve has negative curvature and at the
-                blue points it has positive curvature. The turning number of the curve is obtained by
-                adding the total number of blue dots, subtracting the total number of red dots, and
-                dividing the result by two. Observe that at the curve sections joining points of different
-                colour the tangent field has total rotation equal to zero, and at the sections joining
-                points of the same colour the total rotation is \(\pm\pi\) (the plus and minus sign
-                depending on whether the points are blue or red, respectively).
+                <span class="figure-label">Figure 1.</span> Left: a closed curve with the walker’s heading
+                sampled at even intervals, shaded from light (the start) to dark (the finish). Right: the
+                very same arrows, all moved to a common origin. Nothing has been changed except where the
+                arrows are drawn — and now you can see them sweep once around the compass, light to dark,
+                and close up. This loop has turning number one.
             </figcaption>
         </figure>
 
-        <h2>1. Curvature and the turning number</h2>
-
-        <h3>1.1 Curvature</h3>
-
         <p>
-            We will describe a closed curve in the plane as a regular periodic map
-            \(p : \RR \rightarrow \CC\) of class \(C^{2}\). We will assume that \(p\) is parametrized by
-            arc-length, so that \(|\dot{p}(t)| = 1\) for all \(t \in \RR\). The periodicity assumption
-            implies the existence of a number \(\tau \in \RR\) such that \(p(s+\tau) = p(s)\) for all
-            \(s \in \RR\). In this case the curve is completely determined by its values on the interval
-            \([0,\tau)\). The tangent and normal fields to the curve are
-        </p>
-        \[ T = \dot{p} \quad\text{and}\quad N = iT . \]
-        <p>Differentiating the formula</p>
-        \[ \ip{\dot{p}}{\dot{p}} = 1 \]
-        <p>we obtain</p>
-        \[ \ip{\ddot{p}}{T} = 0 , \]
-        <p>so that</p>
-        \[ \ddot{p} = \kappa N , \]
-        <p>
-            for a periodic function \(\kappa : \RR \rightarrow \RR\). This function can be computed
-            explicitly as
-        </p>
-        \[ \kappa = \ip{\ddot{p}}{N} = \ip{\dot{T}}{N} . \]
-
-        <div class="statement definition">
-            <span class="statement-head">Definition 1.</span> The function \(\kappa\) above is known as the
-            <em>curvature function</em> of the curve \(p = p(s)\).
-        </div>
-
-        <p>
-            For a more detailed description of the meaning of curvature the reader is referred to standard
-            books on differential geometry like [1, 3].
+            The right-hand panel is the whole idea in one picture. Strip away <em>where</em> you were and
+            keep only <em>which way you were facing</em>, and the walk becomes a spin. Counting turns of
+            the curve means counting laps of that spin.
         </p>
 
-        <h3>1.2 The winding number</h3>
+        <h2>2. The heading remembers everything</h2>
 
-        <p>Since the tangent field is unitary we can always write</p>
-        \begin{equation}
-        T(s) = \cos\theta(s) + i\sin\theta(s) .
-        \label{eq:tangent}
-        \end{equation}
         <p>
-            It can be shown that if \(p\) is of class \(C^{2}\) (so that \(T\) is of class \(C^{1}\)) then
-            \(\theta : \RR \rightarrow \RR\) can be chosen to be of class \(C^{1}\) (see [3,
-            Proposition 5, p. 22]). The condition \(T(0) = T(\tau)\) implies that
-        </p>
-        \[ \frac{\theta(\tau) - \theta(0)}{2\pi} \in \ZZ . \]
-        <p>
-            The above number is known as the winding number of \(T\), and we will denote it by \(n(T)\).
-            From formula \(\eqref{eq:tangent}\) we get
-        </p>
-        \[ \kappa = \ip{\dot{T}}{N} = \ip{\dot{\theta}N}{N} = \dot{\theta} , \]
-        <p>and hence</p>
-        \[ n(T) = \frac{1}{2\pi}\int_{0}^{\tau}\kappa(s)\,ds . \]
-
-        <h2>2. Statement and proof of the theorem</h2>
-
-        <div class="statement theorem">
-            <span class="statement-head">Theorem.</span> Consider a closed curve in the plane parametrized
-            by arc-length by a regular periodic map \(p : \RR \rightarrow \RR^{2}\) of class \(C^{2}\).
-            For a given unit vector \(N_{0} \in \RR^{2}\) let \(h_{0} : \RR \rightarrow \RR\) be the height
-            function
-            \[ h_{0}(s) = \ip{p(s)}{N_{0}} . \]
-            If the set of critical points \(C_{0}\) of \(h_{0}\) is such that \(\kappa(s) \not= 0\) for all
-            \(s \in C_{0}\), then
-            \[ n(T,\vec{0}) = \frac{1}{2}\sum_{s \in C_{0}} \sgn(\kappa(s)) . \]
-        </div>
-
-        <p>We prove the theorem as follows. Since</p>
-        \[
-        \begin{aligned}
-        \der{h_{0}}{s} &amp;= \ip{N_{0}}{\dot{p}} = \ip{N_{0}}{T(s)},\\
-        \dder{h_{0}}{s} &amp;= \ip{N_{0}}{\ddot{p}} = \kappa\,\ip{N_{0}}{N},
-        \end{aligned}
-        \]
-        <p>the set of critical points of \(h_{0}\) is</p>
-        \[ C_{0} = N^{-1}(\{N_{0}, -N_{0}\}) , \]
-        <p>and for \(s \in C_{0}\) we have that</p>
-        \[ \dder{h_{0}}{s}(s) = \pm\kappa(s) . \]
-        <p>
-            The selection of plus or minus sign in the above formula depends on whether \(N(s)\) points in
-            the same direction as \(N_{0}\) (plus sign) or in the opposite direction (minus sign). We
-            conclude the following:
-        </p>
-        <ol>
-            <li>The critical points of \(h_{0}\) are either strict local maxima or strict local minima.</li>
-            <li>The set \(C_{0}\) of critical points of \(h_{0}\) is finite, so that we can write
-                \(C_{0} = \{s_{1},\ldots,s_{n}\}\) with \(s_{i} &lt; s_{i+1}\). Due to the periodicity of
-                \(h_{0}\) there is no loss of generality in assuming that \(C_{0} \subset (a,b)\).</li>
-        </ol>
-        <p>To simplify notation, for \(1 \leq k \leq n\) we let</p>
-        \[
-        T_{k} = T(s_{k}),\quad N_{k} = N(s_{k}),\quad \kappa_{k} = \kappa(s_{k})
-        \quad\text{and}\quad \sigma_{k} = \sgn(\kappa(s_{k})),
-        \]
-        <p>and</p>
-        \[
-        T_{n+1} = T_{1},\quad N_{n+1} = N_{1},\quad \kappa_{n+1} = \kappa_{1}
-        \quad\text{and}\quad \sigma_{n+1} = \sigma_{1}.
-        \]
-        <p>
-            The above assumptions imply that if \(s_{k}\) is a minimum then \(s_{k+1}\) is a maximum.
-            Similarly, if \(s_{k}\) is a maximum then \(s_{k+1}\) is a minimum. Hence the cardinality of
-            \(C_{0}\) is an even positive integer.
-        </p>
-        <p>We know that</p>
-        \[
-        n(T,\vec{0}) = \frac{1}{2\pi}\int_{a}^{b}\kappa(s)\,ds
-        = \frac{1}{2\pi}\sum_{k=1}^{n}\int_{s_{k}}^{s_{k+1}}\kappa(s)\,ds ,
-        \]
-        <p>where for \(k = n\) we have defined</p>
-        \[
-        \int_{s_{n}}^{s_{n+1}}\kappa(s)\,ds
-        = \int_{s_{n}}^{b}\kappa(s)\,ds + \int_{a}^{s_{1}}\kappa(s)\,ds .
-        \]
-
-        <div class="statement lemma">
-            <span class="statement-head">Lemma 1.</span> Let \(S^{1}\) be the unit circle in \(\CC\),
-            \(N \in S^{1}\) and \(\gamma : [a,b] \rightarrow S^{1}\) a continuous curve. If
-            \(\ip{\gamma(t)}{N} \in \RR^{+}\) for all \(t \in (a,b)\) and
-            \(\ip{\gamma(a)}{N} = \ip{\gamma(b)}{N} = 0\) then
-            \[ \frac{\theta(b) - \theta(a)}{2\pi} = \frac{\gamma(b) - \gamma(a)}{4iN} . \]
-        </div>
-
-        <div class="proof">
-            <span class="statement-head">Proof.</span> The conditions imply that
-            \[ \frac{\theta(b) - \theta(a)}{2\pi} \in \left\{0, \frac{\pi}{2}, -\frac{\pi}{2}\right\} . \]
-            A simple case by case analysis shows that the different possibilities can also be computed by
-            the right hand side of the formula proposed in the lemma. &#9633;
-        </div>
-
-        <div class="statement corollary">
-            <span class="statement-head">Corollary 1.</span> Under the assumptions of the theorem we have
-            that
-            \[ \frac{\theta(s_{k+1}) - \theta(s_{k})}{2\pi}
-            = \sigma_{k}\left(\frac{T_{k+1} - T_{k}}{4iN_{k}}\right) . \]
-        </div>
-
-        <div class="proof">
-            <span class="statement-head">Proof.</span> This follows directly from the lemma, observing that
-            the value of \(\sigma_{k}\) accounts for the fact that the condition
-            \(\ip{\gamma(t)}{N} \in \RR^{+}\) in some cases becomes \(\ip{\gamma(t)}{N} \in \RR^{-}\).
-            &#9633;
-        </div>
-
-        <div class="statement lemma">
-            <span class="statement-head">Lemma 2.</span> Under the assumptions of the theorem we have that
-            \[ \frac{1}{2\pi}\int_{s_{k}}^{s_{k+1}}\kappa(s)\,ds = \frac{1}{4}(\sigma_{k} + \sigma_{k+1}) . \]
-        </div>
-
-        <div class="proof">
-            <span class="statement-head">Proof.</span> Using Corollary 1 and the identity
-            \(N_{i} = -iT_{i}\) we obtain
-            \[
-            \begin{aligned}
-            \frac{1}{2\pi}\int_{s_{k}}^{s_{k+1}}\kappa(s)\,ds
-            &amp;= \frac{\theta(s_{k+1}) - \theta(s_{k})}{2\pi}\\
-            &amp;= \sigma_{k}\left(\frac{N_{k} - N_{k+1}}{4N_{k}}\right)\\
-            &amp;= \frac{1}{4}\left(\sigma_{k} - \sigma_{k}(N_{k+1}/N_{k})\right).
-            \end{aligned}
-            \]
-            The proof will be completed if we show that
-            \[ \sigma_{k+1} = -\sigma_{k}(N_{k+1}/N_{k}) , \]
-            or equivalently
-            \[ \frac{\sigma_{k+1}}{\sigma_{k}} = -\frac{N_{k+1}}{N_{k}} . \]
-            We prove this last formula as follows. For \(1 \leq k \leq n\) we define
-            \[ \beta_{k} = \sgn\left(\dder{h_{0}}{s}(s_{k})\right) \]
-            and \(\beta_{n+1} = \beta_{1}\). Since the minima and maxima of \(h_{0}\) appear in alternate
-            form, we have that \(\beta_{k+1} = -\beta_{k}\). Finally, since
-            \[ \sigma_{k} = \beta_{k}(N_{k}/N_{0}) , \]
-            we obtain
-            \[ \frac{\sigma_{k+1}}{\sigma_{k}}
-            = \frac{\beta_{k+1}(N_{k+1}/N_{0})}{\beta_{k}(N_{k}/N_{0})}
-            = -\frac{N_{k+1}}{N_{k}} . \quad\square \]
-        </div>
-
-        <p>The proof of the theorem is completed as follows. By using Lemma 2 we have that</p>
-        \[
-        \begin{aligned}
-        n(T,\vec{0}) &amp;= \sum_{k=1}^{n}\left(\frac{1}{2\pi}\int_{s_{k}}^{s_{k+1}}\kappa(s)\,ds\right)\\
-        &amp;= \frac{1}{4}\sum_{k=1}^{n}(\sigma_{k} + \sigma_{k+1})\\
-        &amp;= \frac{1}{2}\sum_{k=1}^{n}\sigma_{k} .
-        \end{aligned}
-        \]
-        <p>Finally, recall that</p>
-        \[ \sigma_{k} = \sgn(\kappa(s_{k})) \]
-        <p>
-            where \(C_{0} = \{s_{1},\ldots,s_{n}\}\) is the set of critical points of \(h_{0}\).
+            It is worth watching the heading more carefully, because it does not simply rotate steadily.
+            Figure 2 plots it against how far you have walked: not as a compass point, which would wrap
+            around and lose count, but as a running total, the way a car’s odometer keeps climbing rather
+            than resetting.
         </p>
 
-        <div class="statement remark">
-            <span class="statement-head">Remark.</span> The result of the theorem holds when the critical
-            points of the function \(h_{0}\) are non-degenerate. This holds for almost all unit vectors
-            \(N_{0} \in \RR^{2}\) (see [2]).
-        </div>
+        <figure>
+            <img src="/writing/figures/turn_heading.png"
+                 alt="A graph of accumulated heading against distance walked, rising with three dips and ending exactly one full turn higher">
+            <figcaption>
+                <span class="figure-label">Figure 2.</span> The running total of the heading as you walk
+                the curve of Figure 1. It climbs where the curve bulges outward and slides back where the
+                curve dents inward — three times each — and finishes exactly one full turn above where it
+                started. The dips are real, and they are the reason the count is interesting: the heading
+                does not march steadily round, it wanders, and still lands on a whole number.
+            </figcaption>
+        </figure>
+
+        <p>
+            Three things are worth noticing. The graph wanders — that is the curve’s dents talking. It
+            ends at exactly one full turn, not 0.98 of one, because the curve closes up and the heading
+            has to come home. And nothing about the wandering in the middle affected the final answer.
+            You could push the curve around, deepen the dents, add new ones, and as long as you never tear
+            the curve or put a corner in it, the graph would still finish on the same horizontal line.
+        </p>
+
+        <h2>3. Not every loop turns once</h2>
+
+        <p>
+            A circle turns once. So does the wobbly loop above, dents and all. But the count is not always
+            one.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/turn_gallery_1.png"
+                         alt="An oval with tangent arrows, labelled one">
+                    <div class="subcaption">(a) a plain oval</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/turn_gallery_0.png"
+                         alt="A figure-eight with tangent arrows, labelled zero">
+                    <div class="subcaption">(b) a figure-eight</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/turn_gallery_2.png"
+                         alt="A curve that loops around twice, labelled two">
+                    <div class="subcaption">(c) a double loop</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 3.</span> Three loops and their turning numbers. The
+                figure-eight turns one way around the top lobe and the other way around the bottom one;
+                the two cancel exactly, and it scores zero. The double loop winds around twice before
+                closing, and scores two.
+            </figcaption>
+        </figure>
+
+        <p>
+            The figure-eight is the instructive one. It is not that it never turns — it turns constantly.
+            It is that the turning cancels: a full turn one way around the upper lobe, a full turn the
+            other way around the lower one. Net zero. And no amount of stretching will ever make a
+            figure-eight into an oval, because you cannot get from zero to one without, at some moment,
+            putting a corner in the curve or pulling it apart.
+        </p>
+
+        <aside class="note">
+            <h4>The number is the whole story</h4>
+            <p>
+                That last observation has a famous converse. Whitney and Graustein proved in 1937 that the
+                turning number is not merely <em>an</em> obstruction to deforming one loop into another —
+                it is the <em>only</em> one. Two closed curves can be smoothly deformed into each other,
+                without ever introducing a corner, exactly when their turning numbers agree. Everything
+                else about a loop — its size, its dents, how it crosses itself — is negotiable. One
+                integer settles the matter.
+            </p>
+        </aside>
+
+        <h2>4. You don’t have to watch the whole walk</h2>
+
+        <p>
+            So far, finding the number has meant tracking your heading continuously, all the way around.
+            That is a lot of watching for a single integer. Here is the shortcut.
+        </p>
+        <p>
+            Pick a direction — any direction. North, say. Now walk the loop again, but instead of watching
+            constantly, only stop at the moments when you are travelling <em>exactly crosswise to north</em>:
+            due east or due west, neither gaining nor losing ground northward. On a generic loop there are
+            only finitely many such moments, and they are easy to spot — they are the points where the
+            curve is momentarily level, the tops of its humps and the bottoms of its troughs with respect
+            to your chosen direction.
+        </p>
+        <p>
+            At each of those points, ask one question: <strong>am I curving left or curving right?</strong>
+            Mark it <span style="color:#2a78d6;font-weight:600">+</span> for left,
+            <span style="color:#eb6834;font-weight:600">−</span> for right. Then:
+        </p>
+        \[ \text{turning number} \;=\; \frac{(\text{number of } +) - (\text{number of } -)}{2} . \]
+        <p>
+            That is the entire recipe. Count, subtract, halve.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/turn_marks.png"
+                 alt="The wobbly closed curve with six marked points, four blue plus and two orange minus, tallying to one">
+            <figcaption>
+                <span class="figure-label">Figure 4.</span> The curve of Figure 1 with north as the chosen
+                direction. Dotted lines mark the six heights at which the curve runs level. At four of
+                them the curve is bending left (<span style="color:#2a78d6">+</span>), at two it is bending
+                right (<span style="color:#eb6834">−</span>). Four minus two is two; halved, that is one —
+                which is what the continuous walk of Figure 2 took a whole lap to establish.
+            </figcaption>
+        </figure>
+
+        <h2>5. Why halve?</h2>
+
+        <p>
+            The division by two looks arbitrary until you notice how the marks are arranged. Follow the
+            curve from one mark to the next and watch what your heading does between them.
+        </p>
+        <p>
+            Between the marks you are never crosswise to north, which means you are steadily gaining
+            northward ground or steadily losing it — you are climbing, or you are descending, with no
+            dithering in between. So the marks alternate: peak, trough, peak, trough, all the way around.
+            And a stretch that runs from a peak to a trough swings your heading through half a turn, no
+            more and no less, because you start facing one way across north and end facing the other.
+        </p>
+        <p>
+            So every mark sits between two stretches, and contributes half a turn’s worth of evidence to
+            each of them. Add up what all the marks say and you have counted every stretch exactly twice.
+            Hence the halving. The signs are there to record which way each half-turn went: a left-hand
+            bend adds, a right-hand bend subtracts, and the dents of Figure 2 — those downward slides —
+            are precisely the stretches bracketed by minus marks.
+        </p>
+
+        <h2>6. The direction was never the point</h2>
+
+        <p>
+            North was an arbitrary choice, and a suspicious one: the marks are entirely at its mercy. Tilt
+            your chosen direction and the marks slide along the curve, appear in pairs, vanish in pairs.
+            The count changes. The answer does not.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/turn_tilt_a.png"
+                         alt="The curve marked with respect to north: six marks, four plus and two minus, tally one">
+                    <div class="subcaption">(a) north — six marks</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/turn_tilt_b.png"
+                         alt="The same curve marked with respect to east: four marks, three plus and one minus, tally one">
+                    <div class="subcaption">(b) east — four marks</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 5.</span> The same curve, measured against two different
+                directions. North finds six level points and tallies four plus against two minus; east
+                finds only four and tallies three against one. Six marks or four, the arithmetic lands on
+                one both times.
+            </figcaption>
+        </figure>
+
+        <p>
+            This is the part worth keeping. The chosen direction is scaffolding — it produces the marks,
+            the marks produce the count, and then the direction drops out of the answer entirely. You are
+            free to pick whichever direction makes the marks easiest to find, confident that the loop does
+            not care which one you picked.
+        </p>
+
+        <aside class="note">
+            <h4>A miniature of a much larger idea</h4>
+            <p>
+                Choose an arbitrary auxiliary function, look only at the handful of points where it goes
+                momentarily flat, attach a sign to each, add them up, and recover something about the
+                shape that has nothing to do with the function you chose. That pattern is called
+                <em>Morse theory</em>, and it runs far beyond loops in the plane: the same move counts
+                holes in surfaces, constrains the solutions of differential equations, and underpins a
+                good deal of modern topology. What makes the plane-curve version such a good place to
+                meet it is that you can check the whole thing on the back of an envelope.
+            </p>
+        </aside>
+
+        <h2>7. Count one yourself</h2>
+
+        <p>
+            Everything above is a few lines of Python. Sample the curve, find the points where it runs
+            level with respect to your chosen direction, and add up the signs:
+        </p>
+
+<pre><code>import numpy as np
+
+# a wobbly closed loop: a circle with three dents
+curve = lambda t: ((1 + 0.4*np.cos(3*t)) * np.cos(t),
+                   (1 + 0.4*np.cos(3*t)) * np.sin(t))
+
+marks, points, signs = critical_points(curve, direction=(0, 1))
+print(signs)              # [ 1.  1. -1.  1. -1.  1.]
+print(signs.sum() / 2)    # 1.0  -- the turning number
+</code></pre>
+
+        <p>
+            Change the direction and the list of signs changes; the last line does not. Change the curve
+            to a figure-eight and it prints zero. Every figure in this article was drawn by that same
+            code, which also checks its own arithmetic: for each curve it compares the tally against the
+            turning number measured the slow way, by following the heading all the way around. They have
+            always agreed, which is a reassuring thing for a shortcut to do.
+        </p>
 
         <hr class="section-break">
 
-        <h3>References</h3>
-        <ol class="writing-refs">
-            <li>M. P. do Carmo, <em>Differential Geometry of Curves and Surfaces</em>, Prentice-Hall,
-                1976.</li>
-            <li>L. Nicolaescu, <em>An Invitation to Morse Theory</em>, Springer-Verlag, 2011.</li>
-            <li>M. Spivak, <em>A Comprehensive Introduction to Differential Geometry, Vol. II</em>, Publish
-                or Perish, 1979.</li>
-        </ol>
+        <h3>Further reading</h3>
+        <ul class="writing-refs">
+            <li>H. Whitney, <em>On regular closed curves in the plane</em>, Compositio Mathematica 4
+                (1937) — where the turning number is shown to be the only obstruction.</li>
+            <li>M. do Carmo, <em>Differential Geometry of Curves and Surfaces</em>, Prentice-Hall (1976) —
+                the standard careful account of curvature and the turning tangents theorem.</li>
+            <li>J. Milnor, <em>Morse Theory</em>, Princeton (1963) — the classic statement of the larger
+                idea the last aside gestures at.</li>
+            <li>L. Nicolaescu, <em>An Invitation to Morse Theory</em>, Springer (2011) — a modern and
+                unusually readable route into the same territory.</li>
+        </ul>
+
+        <hr class="section-break">
+
+        <p class="writing-hire">
+            I work as an independent consultant helping engineering and computational teams solve
+            difficult problems in geometric modeling, surface processing, and algorithmic design. If your
+            team is tackling a non-trivial spatial or mathematical challenge, reach out directly at
+            <a href="mailto:contact@carlosvalero.com">contact@carlosvalero.com</a>.
+        </p>
 
         <p class="writing-links">
             <a href="/writing.html">All writing</a>
