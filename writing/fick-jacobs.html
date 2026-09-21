@@ -1,0 +1,524 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="A molecule wandering in a narrow channel is pushed by nothing and still climbs hills. The Fick–Jacobs equation, built up from pictures — and then pushed until it breaks.">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <title>When Geometry Acts Like a Force — Carlos Valero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/cv.png">
+    <script src="/writing/mathjax.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+<script id="replace_with_navbar" src="/nav.js?v=2"></script>
+<br>
+<div class="container">
+    <article class="writing-article">
+        <p class="writing-meta"><a href="/writing.html">&larr; Writing</a></p>
+        <h1>When Geometry Acts Like a Force</h1>
+        <p class="writing-lede">
+            A molecule loose in a narrow channel is pushed by nothing at all — and still climbs hills
+        </p>
+        <p class="writing-byline">Carlos Valero Valdés</p>
+
+        <div class="writing-abstract">
+            <p>
+                A protein threading a nuclear pore, an ion crossing a membrane channel, a bead in a
+                microfluidic duct: something small, loose inside something narrow, shoved about at
+                random and heading nowhere in particular. Usually all you want to know is how far
+                along it has got, so you throw away two of the three coordinates — and the throwing
+                away leaves a residue. In a channel that bulges and pinches, the wanderers pile up in
+                the bulges and stay there, permanently, with no force anywhere in the picture. Written
+                down, that residue is an ordinary potential landscape assembled out of nothing but the
+                logarithm of the available room. This is the Fick–Jacobs equation. Here it is built up
+                from pictures, and then pushed until it breaks.
+            </p>
+        </div>
+
+        <h2>1. A molecule in a pore</h2>
+
+        <p>
+            Start with the picture, not the equation. Something small is loose inside something narrow: a
+            protein threading a nuclear pore; an ion crossing a channel in a cell membrane, perhaps a
+            nanometre across; a dye molecule working its way through the pore network of a rock; a bead
+            in a microfluidic channel ten micrometres wide.
+        </p>
+        <p>
+            None of these wanderers are being pumped. The molecule is jostled by the solvent around it,
+            millions of times a second, from every direction at once. It has no heading and no memory:
+            over a short interval it is as likely to step one way as the other. That is Brownian motion,
+            and on its own it is well understood.
+        </p>
+        <p>
+            What makes the problem interesting is that the container is not a straight pipe. Real
+            channels bulge and pinch. And the shape of the container turns out to change the answer in
+            a way that has nothing to do with forces.
+        </p>
+
+        <h2>2. One number instead of three</h2>
+
+        <p>
+            To describe the molecule exactly you would track a probability cloud \(P(x, y, z, t)\)
+            filling a complicated three-dimensional region, with the condition that nothing leaks
+            through the walls. That is a hard problem, and usually far more than you wanted — because
+            in practice you rarely care about the molecule’s height, or its distance from the wall. You
+            care how far along it has got. <em>How long until it reaches the other side? Where is it
+            likely to be after a millisecond?</em> Those are questions about one coordinate: the
+            position \(x\) along the channel’s axis.
+        </p>
+        <p>
+            So the natural move is to squash the cloud onto the axis. At each station \(x\), add up all
+            the probability sitting in that cross-section:
+        </p>
+        \[
+        p(x, t) \;=\; \int_{\Omega(x)} P(x, y, z, t)\,\mathrm{d}y\,\mathrm{d}z .
+        \]
+
+        <figure>
+            <img src="/writing/figures/fj_reduction.png"
+                 alt="A wandering path inside a bulging channel, with five of its positions dropped onto an axis below">
+            <figcaption>
+                <span class="figure-label">Figure 1.</span> The molecule wanders in three dimensions;
+                only its progress along the axis is recorded. Everything the walls do to it has to
+                survive this flattening, which is the whole difficulty.
+            </figcaption>
+        </figure>
+
+        <p>
+            The question is what equation \(p(x, t)\) obeys. That equation is the Fick–Jacobs equation,
+            and the surprise is that it is not the obvious one.
+        </p>
+
+        <h2>3. Why plain diffusion is the wrong answer</h2>
+
+        <p>
+            The obvious guess is that squashing a diffusion problem gives back a diffusion problem:
+        </p>
+        \[
+        \frac{\partial p}{\partial t} \;=\; D\,\frac{\partial^{2} p}{\partial x^{2}} ,
+        \]
+        <p>
+            which is right for a pipe of constant width and wrong for everything else. The way it fails
+            is the key to all that follows.
+        </p>
+        <p>
+            Release a great many molecules into a bulging channel and wait until nothing changes any
+            more. In a straight pipe they end up spread perfectly evenly, which is what plain diffusion
+            predicts. In a bulging pipe they do not. They pile up in the wide parts and thin out in the
+            narrow ones — permanently, as the settled state, not as a passing phase.
+        </p>
+        <p>
+            Nothing is pulling them into the bulges. There is no field, no charge, no attraction to the
+            walls. There is simply <em>more room</em> there, and a wanderer with no preferences spends
+            its time in proportion to the room available.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/fj_crowd.png"
+                 alt="Particles gathered in the two wide ends of a channel and nearly absent from its neck">
+            <figcaption>
+                <span class="figure-label">Figure 2.</span> Every position here has identical energy, so
+                no force exists anywhere in the picture. The particles still gather in the chambers,
+                purely because there are more places to be. This is the entire effect that plain
+                diffusion along a line cannot represent.
+            </figcaption>
+        </figure>
+
+        <p>
+            That is a claim about what happens, so here it is happening. Six hundred walkers take
+            genuinely random steps inside a corrugated channel — no forces, no bias, nothing but a wall
+            that reflects them. The bars underneath count how much time they spend at each position.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/fj_occupancy.png"
+                 alt="Simulated walkers in a corrugated channel, with a histogram of time spent that follows the channel's width">
+            <figcaption>
+                <span class="figure-label">Figure 3.</span> Six hundred reflecting walkers, and the time
+                they spend at each station. The dashed curve is not fitted to the bars: it is the
+                channel’s own half-width, drawn on the same axes. Occupancy settles proportional to the
+                width — in three dimensions, proportional to the cross-sectional area. Nothing in the
+                simulation knows anything about the channel except that it bounces.
+            </figcaption>
+        </figure>
+
+        <p>
+            One detail of that simulation is worth flagging now, because the whole article turns on it.
+            A walker that steps through the wall is mirrored back in, and the mirror is the wall’s
+            tangent plane. Wherever the channel is widening or narrowing, that plane is tilted with
+            respect to the axis, so a bounce moves the walker <em>along</em> the channel as well as
+            across it. Reflect only the crosswise coordinate — the tempting shortcut — and the axial
+            motion never feels the channel at all: the walkers stay spread perfectly evenly no matter
+            what shape you put them in, and the figure above comes out flat. The tilt of the wall is
+            not a detail. It is the mechanism.
+        </p>
+
+        <h2>4. Room becomes a force</h2>
+
+        <p>
+            Write \(A(x)\) for the cross-sectional area at station \(x\). What the simulation shows is
+            that, once everything has settled, \(p(x) \propto A(x)\): occupancy simply follows
+            available room.
+        </p>
+        <p>
+            Now compare that with how a particle settles in a landscape of real forces. There,
+            statistical mechanics gives the Boltzmann distribution — the chance of being somewhere falls
+            off exponentially with the energy there, \(p \propto e^{-F/k_{B}T}\). Set the two side by
+            side, solve for \(F\), and something worth pausing over drops out:
+        </p>
+        \[
+        F(x) \;=\; -\,k_{B}T \ln A(x) .
+        \]
+        <p>
+            The particle behaves <em>exactly as if</em> it were moving through a potential landscape, and
+            that landscape is nothing but the logarithm of the room available at each station. A pinch
+            becomes a hill. A bulge becomes a valley. The molecule is pushed by nothing at all and still
+            climbs and descends.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/fj_landscape.png"
+                 alt="A corrugated channel above, and below it the free energy minus log of its width, with barriers at the pinches">
+            <figcaption>
+                <span class="figure-label">Figure 4.</span> Geometry, drawn as a landscape. The dotted
+                guides mark the pinches; each one sits under a hill in the free energy. The two are the
+                same picture — the lower curve is the logarithm of the upper one, turned upside down.
+            </figcaption>
+        </figure>
+
+        <p>
+            This is called an <em>entropic barrier</em>, and the name is precise: the obstacle is made of
+            missing options rather than of energy. Squeezing through a neck costs the molecule not effort
+            but opportunity. There are very few ways to be inside a neck and overwhelmingly many ways to
+            be inside a chamber, and a wanderer that has no preferences is therefore rarely in the neck —
+            which, seen from the axis, is indistinguishable from being pushed out of it.
+        </p>
+
+        <h2>5. The equation, read slowly</h2>
+
+        <p>
+            Here it is. It looks more elaborate than plain diffusion, but every piece is doing an
+            identifiable job.
+        </p>
+        \[
+        \frac{\partial p}{\partial t} \;=\; \frac{\partial}{\partial x}
+        \left[\, D(x)\,A(x)\,\frac{\partial}{\partial x}\!\left(\frac{p}{A(x)}\right)\right]
+        \]
+        <ul>
+            <li>\(p/A\) is <strong>the concentration</strong>, and it is the crux. \(p\) counts
+                particles in a slice; dividing by the area converts it to particles <em>per unit
+                volume</em>. A fat slice can hold a great many particles at low concentration. Diffusion
+                responds to concentration, not to headcount, so this ratio — not \(p\) itself — is what
+                must be differentiated.</li>
+            <li>\(\partial(p/A)/\partial x\) is <strong>the driving gradient</strong>: Fick’s law,
+                correctly applied. Flow runs from higher concentration to lower. If the concentration is
+                uniform this is zero and nothing moves, however lumpy \(p\) itself may be.</li>
+            <li>\(A(x)\) is <strong>the size of the opening</strong>. It converts a flux per unit area
+                into the total flow crossing that station: a wide cross-section passes more at the same
+                gradient.</li>
+            <li>The outer \(\partial/\partial x\) is <strong>bookkeeping</strong>. Whatever flows in and
+                does not flow out has to accumulate. It is conservation of particles, nothing more.</li>
+        </ul>
+
+        <aside class="note">
+            <h4>The sanity check</h4>
+            <p>
+                Set \(p \propto A\) — the settled state of Figure 3. Then \(p/A\) is constant, its
+                derivative vanishes, the bracket is zero, and \(\partial p/\partial t = 0\). The pile-up
+                in the bulges is exactly what this equation calls equilibrium, and it holds whatever
+                \(D(x)\) may be. Plain diffusion would have insisted on flattening it.
+            </p>
+        </aside>
+
+        <p>
+            There is an equivalent way to write it that makes the landscape explicit. Using
+            \(F = -k_{B}T \ln A\), the same equation becomes an ordinary drift-and-diffusion equation in
+            that entropic landscape:
+        </p>
+        \[
+        \frac{\partial p}{\partial t} \;=\; \frac{\partial}{\partial x}
+        \left[\, D\left(\frac{\partial p}{\partial x}
+        + \frac{p}{k_{B}T}\,\frac{\partial F}{\partial x}\right)\right] .
+        \]
+        <p>
+            Two faces of one equation. The first says <em>concentration drives flow through an opening of
+            varying size</em>; the second says <em>the particle diffuses while sliding down an entropic
+            hill</em>. Expand the derivatives and they are the same expression, term for term.
+        </p>
+
+        <h2>6. The subtlety hiding in D</h2>
+
+        <p>
+            So far \(D\) has been carried along without comment. It is where the remaining difficulty
+            lives, and where most of the research on this equation has gone.
+        </p>
+        <p>
+            Getting from three dimensions to one required an assumption that was never stated out loud:
+            that at every instant the particle is spread evenly across the cross-section. Only then can a
+            slice be described by its total \(p\) alone. That is never exactly true. Spreading across a
+            channel takes time — roughly \(R^{2}/D_{0}\) for a channel of half-width \(R\) — and if the
+            wall slopes, then advancing along the axis means the particle must <em>also</em> travel
+            sideways to stay spread across the widening section. It is always slightly behind.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/fj_cone.png"
+                 alt="Five random paths spreading outwards as they advance along a widening cone, with the wall's angle marked">
+            <figcaption>
+                <span class="figure-label">Figure 5.</span> Keeping up costs something. Five walkers
+                released together at the narrow end; to stay spread across the section they must travel
+                the bracketed distance sideways as well as the whole length forward. Sideways spreading
+                is not instantaneous, so the projected motion along the axis is slower than free
+                diffusion would be.
+            </figcaption>
+        </figure>
+
+        <p>
+            The repair is to let the coefficient depend on position: \(D\) becomes \(D(x)\), smaller than
+            the free value \(D_{0}\) wherever the wall is steep. Two closed forms cover most of what is
+            used in practice. For a round tube of radius \(R(x)\), Reguera and Rubí give
+        </p>
+        \[
+        D(x) \;=\; D_{0}\left(1 + R'(x)^{2}\right)^{-1/2} ,
+        \]
+        <p>
+            which for a straight cone is <em>exactly</em> \(D_{0}\cos\alpha\), since \(\tan\alpha = R'\).
+            For a flat two-dimensional channel of half-width \(w(x)\), the Kalinay–Percus resummation of
+            the systematic expansion gives
+        </p>
+        \[
+        D(x) \;=\; D_{0}\,\frac{\arctan w'(x)}{w'(x)} .
+        \]
+        <p>
+            Both equal \(D_{0}\) for a wall parallel to the axis and fall away as the wall steepens, but
+            they fall at different rates — \(1 - \tfrac{1}{2}\lambda^{2}\) against
+            \(1 - \tfrac{1}{3}\lambda^{2}\) for small slope \(\lambda\). The difference is
+            dimensionality: a particle in a round tube has more sideways room to cover than one in a flat
+            slit.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/fj_coeff.png"
+                 alt="Two curves of D over D-zero falling with wall slope, against the flat line constant-D assumes">
+            <figcaption>
+                <span class="figure-label">Figure 6.</span> What the slope costs. Both coefficients are
+                exactly \(D_{0}\) for a wall parallel to the axis and decline from there. At a slope of
+                1 — a wall at 45° — a round tube has already lost 29% of its free diffusivity. The dotted
+                line is what constant-\(D\) Fick–Jacobs assumes throughout.
+            </figcaption>
+        </figure>
+
+        <h2>7. When to believe it</h2>
+
+        <p>
+            The equation is an approximation with a clearly marked domain, and it is worth knowing which
+            side of the line a given channel falls on. It works well when the channel is narrow compared
+            with the distance over which it changes shape — when the wall slope is small, say
+            \(|R'| \lesssim 1\). Then sideways spreading really is fast compared with axial progress,
+            which is the assumption the whole derivation rests on. Gently corrugated pores, tapered
+            micro-channels and slowly flaring nozzles are all comfortably inside.
+        </p>
+        <p>
+            It struggles when the channel has abrupt steps or sharp corners, where the wall slope is
+            effectively infinite and no expansion in it converges. Or when the geometry is a chain of
+            large chambers joined by very short narrow necks — there the physics is better described as
+            hopping between chambers at some rate than as diffusion along a coordinate. Or when the
+            cross-section is so wide that a particle genuinely fails to explore it before moving on.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/fj_domain_a.png"
+                         alt="A gently corrugated channel with walkers spread in proportion to its width">
+                    <div class="subcaption">(a) gentle — the wall never steeper than 18°</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/fj_domain_b.png"
+                         alt="Wide chambers joined by short narrow necks, with walkers almost absent from the necks">
+                    <div class="subcaption">(b) abrupt — chambers joined by short necks</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 7.</span> Two channels, the same walkers. On the left
+                the wall never exceeds 18°, and a coordinate along the axis is a fair description of
+                where the particle is. On the right the necks are short and the walls nearly vertical:
+                a particle in a chamber stays there for a long time and then makes a dash, which is a
+                different kind of process wearing the same clothes.
+            </figcaption>
+        </figure>
+
+        <aside class="note">
+            <h4>How close is it, in numbers?</h4>
+            <p>
+                Simulate the full three-dimensional problem in a corrugated round tube, measure how fast
+                the cloud spreads along the axis, and compare with the long-time coefficient the reduced
+                equation predicts for the same tube. At a maximum wall slope of 0.08 the two agree to
+                about 1%; at 0.35, to about 4%; at 0.63, to about 6%. The error grows with the slope, as
+                advertised, and always in the same direction — the reduced equation is a little
+                pessimistic, predicting slightly less transport than really occurs. For a method that
+                throws away two of three dimensions, a few percent is a bargain.
+            </p>
+        </aside>
+
+        <h2>8. What area cannot see</h2>
+
+        <p>
+            Notice what both coefficients in Section 6 have in common: each depends only on how the
+            cross-sectional <em>area</em> varies along the channel. Neither knows what <em>shape</em> the
+            cross-section is. That turns out to be an incomplete accounting, and the cleanest way to show
+            it is to build a channel where area has nothing at all to report.
+        </p>
+        <p>
+            Take a perfectly straight axis and a cross-section of constant area — an ellipse, say — and
+            let that ellipse slowly rotate as you advance, like a twisted ribbon. The area never changes,
+            so \(R' = 0\) everywhere and both formulas return the free value \(D_{0}\), with no penalty
+            at all.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/fj_twist.png"
+                 alt="A tube with a straight axis whose elliptical cross-section rotates as it advances">
+            <figcaption>
+                <span class="figure-label">Figure 8.</span> Straight axis, constant area, turning
+                section: two full turns over the length shown, with the section itself drawn at five
+                stations. Every area-based effective coefficient reports that nothing whatever is
+                happening here.
+            </figcaption>
+        </figure>
+
+        <p>
+            But the wall is not parallel to the axis. A particle out near the tip of the long axis finds
+            that the tip swings away as it advances, so it must shuffle sideways to keep up — and by
+            Section 6’s own argument, that must slow it down. Which is it: the formulas, or the argument?
+        </p>
+        <p>
+            This one can be settled. Walk twenty thousand particles through such a tube, with nothing
+            acting on them but a reflecting wall, and measure how fast the cloud spreads along the axis.
+            The section used below is an ellipse two units across and seven-tenths of a unit deep, and
+            the twist rate says how many radians it turns through per unit of length travelled.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/fj_twist_cost.png"
+                 alt="Measured axial diffusivity falling from 1 to 0.58 as the twist rate increases, against a flat prediction of 1">
+            <figcaption>
+                <span class="figure-label">Figure 9.</span> Measured axial diffusivity against twist
+                rate. At zero twist the tube is an ordinary elliptical cylinder and the measurement
+                returns \(D_{0}\), as it must — that is the control. Turn the section once every five
+                lengths and 16% of the diffusivity is gone; once every 1.6 lengths, about one channel
+                width, and 42% is gone. The dotted line is what every area-based formula predicts at
+                every twist rate on the plot. Error bars are smaller than the dots.
+            </figcaption>
+        </figure>
+
+        <p>
+            So the formulas are not merely imprecise here; they are blind. The same is true of a channel
+            whose section keeps its area but changes shape as it advances, and of one that merely drifts
+            off to one side while staying exactly the same size throughout. In each case the area-based
+            coefficients predict that nothing happens, and something does. Recovering that missing
+            suppression — the part of the geometry that area alone cannot see — is an
+            <a href="/research.html">active line of work</a>, and it is why the coefficient wants to be
+            written in terms of the channel’s geometry rather than its cross-sectional bookkeeping.
+        </p>
+
+        <h2>9. Try it</h2>
+
+        <p>
+            Every simulation in this article is the same four lines. A channel is anything that can say
+            where its wall is: a function \(g\) that is negative inside, zero on the wall and positive
+            outside, together with its gradient. A walker takes a free Brownian step; if it has left, it
+            is mirrored back in.
+        </p>
+
+<pre><code>def bounce(channel, q):
+    """Mirror a walker that stepped through the wall back inside."""
+    n = channel.grad(q)                      # points across the wall
+    wall = q - (channel.g(q) / dot(n, n))[:, None] * n
+    n = channel.grad(wall)                   # the normal where it left
+    over = dot(q - wall, n) / dot(n, n)      # how far past it went
+    return q - 2 * over[:, None] * n         # mirrored back inside
+</code></pre>
+
+        <p>
+            The normal \(n\) is the whole story. Whenever the wall is not parallel to the axis it has a
+            component along the axis, and reflecting through it costs the walker axial progress. Delete
+            that component — reflect only the crosswise coordinates, which is what it feels natural to do
+            — and you have built a world in which the shape of a channel does not matter at all: walkers
+            spread evenly through necks and chambers alike, and no amount of corrugation slows anything
+            down. Every effect in this article lives in that one component.
+        </p>
+        <p>
+            The accompanying tests check what can be checked. That \(p \propto A\) makes the flux
+            identically zero while an evenly spread \(p\) does not; that the two ways of writing the
+            equation are the same expression to machine precision; that the round-tube coefficient is
+            exactly \(D_{0}\cos\alpha\) for a cone and that the two small-slope expansions really are
+            \(1-\lambda^{2}/2\) and \(1-\lambda^{2}/3\); that a reflecting walk settles into the
+            channel’s own width to within 4%; that a turning <em>circular</em> section — a cylinder in
+            disguise — gives back exactly \(D_{0}\), which is how you know the simulator has no axial
+            bias of its own; and that a corrugated round tube lands within a few percent of what
+            Fick–Jacobs predicts for it.
+        </p>
+        <p>
+            What stays with me is how much of this is bookkeeping about what you agreed to forget. The
+            molecule never felt a force. It was only ever bouncing. The hill exists because we decided to
+            write down one number instead of three, and the hill is exactly the price of that decision —
+            payable in full, as long as the wall slopes gently and the section does not turn.
+        </p>
+
+        <hr class="section-break">
+
+        <h3>Further reading</h3>
+        <ul class="writing-refs">
+            <li>M. H. Jacobs, <em>Diffusion Processes</em>, Springer (1967) — where the reduction for a
+                channel of varying section is set out; the Fick half of the name is Adolf Fick’s 1855
+                law relating flux to concentration gradient.</li>
+            <li>R. Zwanzig, <em>Diffusion past an entropy barrier</em>, Journal of Physical Chemistry 96
+                (1992) — the paper that put the position-dependent coefficient on the map.</li>
+            <li>D. Reguera and J. M. Rubí, <em>Kinetic equations for diffusion in the presence of
+                entropic barriers</em>, Physical Review E 64 (2001) — the \((1+R'^{2})^{-1/2}\)
+                coefficient of Section 6.</li>
+            <li>P. Kalinay and J. K. Percus, <em>Corrections to the Fick–Jacobs equation</em>, Physical
+                Review E 72 (2005) and 74 (2006) — the systematic expansion, and the resummation that
+                gives \(\arctan w' / w'\).</li>
+            <li>C. Valero and R. Herrera, <em>A Fick–Jacobs equation for channels over 3D curves</em>,
+                Physical Review E 90 (2014), and <em>A coordinate-free formulation of effective
+                diffusion on channels</em> (2020),
+                <a href="https://arxiv.org/abs/2008.05436" target="_blank" rel="noopener noreferrer">arXiv:2008.05436</a>
+                — what the coefficient looks like when the channel is described by its geometry rather
+                than by its cross-sectional area.</li>
+        </ul>
+
+        <hr class="section-break">
+
+        <p class="writing-hire">
+            I work as an independent consultant helping engineering and computational teams solve
+            difficult problems in geometric modeling, surface processing, and algorithmic design. If your
+            team is tackling a non-trivial spatial or mathematical challenge, reach out directly at
+            <a href="mailto:cvalero@carlosvalero.com">cvalero@carlosvalero.com</a>.
+        </p>
+
+        <p class="writing-links">
+            <a href="/writing.html">All writing</a>
+        </p>
+    </article>
+    <br>
+    <script id="replace_with_footer" src="/footer.js?v=2"></script>
+    <br>
+    <br>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
