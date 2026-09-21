@@ -1,0 +1,639 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description"
+          content="A single ray goes into a crystal and a ring of light comes out. Hamilton predicted it in 1832 from mathematics alone; here is why the crystal cannot decide where to send the light, why the polarization turns only half a turn around the ring, and why topology makes the cone unavoidable.">
+    <link href="/style.css" rel="stylesheet" type="text/css">
+    <title>Where Light Cannot Decide — Carlos Valero</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-iYQeCzEYFbKjA/T2uDLTpkwGzCiq6soy8tYaI1GyVh/UjpbCx/TYkiZhlZB6+fzT" crossorigin="anonymous">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Source+Serif+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&amp;display=swap"
+          rel="stylesheet">
+    <link rel="icon" type="image/png" href="/images/cv.png">
+    <script src="/writing/mathjax.js"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+</head>
+
+<body>
+<script id="replace_with_navbar" src="/nav.js?v=2"></script>
+<br>
+<div class="container">
+    <article class="writing-article">
+        <p class="writing-meta"><a href="/writing.html">&larr; Writing</a></p>
+        <h1>Where Light Cannot Decide</h1>
+        <p class="writing-lede">
+            A single ray goes into a crystal and a ring of light comes out. Hamilton predicted it in 1832
+            from mathematics alone — and the reason it has to happen is topological
+        </p>
+        <p class="writing-byline">Carlos Valero Valdés</p>
+
+        <div class="writing-abstract">
+            <p>
+                Light in a crystal usually splits in two. The crystal offers it two speeds, each with its
+                own polarization, and sends each polarization its own way. In 1832 William Rowan Hamilton
+                noticed that along certain special directions the two speeds coincide, and that the crystal
+                is then left with no way of choosing where to send the light. So it sends it every way at
+                once, around a hollow cone, and a thin beam leaves the crystal as a ring. Within two months
+                Humphrey Lloyd had seen the ring in a piece of aragonite. Here the prediction is built up
+                from pictures, together with the detail Lloyd noticed next: going once around the cone, the
+                light’s polarization turns only half a turn. That half is the key to the whole thing. It is
+                why the special directions have to exist at all, and why, in a crystal with no special
+                symmetry, they can only be cones.
+            </p>
+        </div>
+
+        <h2>1. One ray in, a ring out</h2>
+
+        <p>
+            Here is the experiment. Take a crystal of aragonite — a common mineral, the stuff
+            mother-of-pearl is made of — and polish two parallel faces on it, cut at a particular angle to
+            its internal structure. Shine a narrow beam of light through it and look at what comes out of
+            the far side.
+        </p>
+        <p>
+            Tilt the crystal a little either way and you see two spots of light, which is what crystals do;
+            more on that in a moment. But line the beam up with one particular direction inside the crystal,
+            and the two spots swell, bend towards each other and close up into a single bright ring. One
+            ray went in. A hollow cylinder of light came out.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/cr_hero.png"
+                 alt="A single ray entering a crystal block, spreading into a slanted hollow cone inside it, and leaving as a hollow cylinder that draws a ring on a screen">
+            <figcaption>
+                <span class="figure-label">Figure 1.</span> The phenomenon, in outline. A ray enters the
+                crystal along one of its optic axes and spreads into a hollow, slanted cone of rays. Each of
+                those leaves the far face parallel to the ray that came in, so what emerges is a hollow
+                cylinder, and a screen at any distance shows a ring of the same size. The cone is drawn
+                about ten times wider than it is in aragonite, where its full opening is two degrees.
+            </figcaption>
+        </figure>
+
+        <p>
+            What makes this famous is not that it happens but the order in which things happened.
+            William Rowan Hamilton — twenty-seven, and already Astronomer Royal of Ireland — predicted
+            it in 1832 by studying the geometry of Augustin Fresnel’s theory of light in crystals. Nobody
+            had seen anything like it. His colleague at Trinity College Dublin, Humphrey Lloyd, went
+            looking, and within two months he had found it. Lloyd later described the moment the crystal
+            came into line as “the sudden and almost magical change of the appearance, from two luminous
+            points to a perfect luminous ring”, and the angle of the cone he measured agreed with
+            Hamilton’s calculation to within five minutes of arc.
+        </p>
+        <p>
+            It was among the first times mathematics announced something in nature that nobody had yet
+            seen, and it made both men’s reputations. The question here is why it happens — and, more
+            interestingly, why it has to.
+        </p>
+
+        <h2>2. Two speeds for every direction</h2>
+
+        <p>
+            Start with what crystals ordinarily do. Put a clear rhomb of calcite on a printed page and you
+            see every letter twice, a fact Rasmus Bartholin recorded in 1669. A ray entering the crystal
+            comes out as two rays.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/cr_split.png"
+                 alt="A ray entering a calcite block and leaving as two parallel rays, one marked with dots and one with bars">
+            <figcaption>
+                <span class="figure-label">Figure 2.</span> Double refraction. Light entering the crystal
+                comes apart into two beams vibrating at right angles to each other: one vibrating across
+                the page (dots), which goes straight through, and one vibrating in the page (bars), which
+                is pushed sideways even though it entered square-on. The angle between them is exaggerated
+                here; in calcite it is about six degrees.
+            </figcaption>
+        </figure>
+
+        <p>
+            The reason is polarization. Light is a transverse wave — whatever vibrates, vibrates across the
+            direction of travel — so for each direction of travel there is a whole plane of possible
+            vibration directions. In glass or water it makes no difference which one you choose; all of
+            them travel at the same speed. A crystal is different. Its atoms are stacked in a lattice that
+            is easier to polarize one way than another, and for each direction of travel it singles out
+            exactly two vibration directions, at right angles to each other, that pass through it
+            unchanged, each at its own speed. Any other polarization is a mixture of those two, and the
+            two part company.
+        </p>
+        <p>
+            The arithmetic behind this is the arithmetic of an ellipse. Each direction of travel
+            \(\mathbf{s}\) comes with a symmetric \(2 \times 2\) matrix \(M(\mathbf{s})\) that acts on the
+            plane of vibrations across \(\mathbf{s}\) and is built from the crystal’s three principal
+            refractive indices and nothing else. The two waves are its eigenvectors:
+        </p>
+        \[
+        M(\mathbf{s})\,\mathbf{d} \;=\; \frac{1}{n^{2}}\,\mathbf{d} .
+        \]
+        <p>
+            Here \(\mathbf{d}\) is the polarization and \(n\) the refractive index, the factor by which that
+            wave is slower than light in vacuum. A symmetric matrix has two eigenvectors, always at right
+            angles, and two eigenvalues: two polarizations, two speeds. Everything in this article comes out
+            of that one small matrix.
+        </p>
+
+        <h2>3. Drawing every speed at once</h2>
+
+        <p>
+            Aragonite has three different refractive indices along three perpendicular directions in the
+            crystal — call them \(n_1 &lt; n_2 &lt; n_3\) — which makes it <em>biaxial</em>, for a reason
+            about to appear. To see all of its speeds at once, draw a surface: in every direction from a
+            centre point, mark two points, at distances equal to the two refractive indices for that
+            direction. The result is called the <em>index surface</em>, and it has two sheets, one nested
+            inside the other.
+        </p>
+        <p>
+            Sliced through the plane that contains the largest and the smallest index, it is simple enough
+            to draw exactly.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/cr_section.png"
+                 alt="A blue circle and a green ellipse centred on the same point, crossing at four points marked in orange, with two dashed lines through the crossings labelled optic axis">
+            <figcaption>
+                <span class="figure-label">Figure 3.</span> A slice through the index surface of a biaxial
+                crystal. The distance from the centre, in each direction, is the refractive index for
+                light travelling that way. Light vibrating across the page meets the same index whichever
+                way it travels in this plane: the blue circle. Light vibrating in the page meets an index
+                that depends on direction: the green ellipse. A direction of travel crosses each curve once,
+                and the two crossings give its two refractive indices. Four times the curves cross each other, and along
+                those two lines through the centre — the crystal’s optic axes — the two waves travel at the
+                same speed. The indices are exaggerated so the shapes can be told apart; real crystals are
+                far less lopsided.
+            </figcaption>
+        </figure>
+
+        <p>
+            Away from this plane the two sheets never meet. The surface is two closed shells, one inside the
+            other, that touch at exactly four points: two opposite pairs, along the two optic axes. David
+            Brewster had found those directions by experiment in 1813, when he noticed that in topaz double
+            refraction disappears along two particular lines. That is where the word <em>biaxial</em> comes
+            from.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/cr_surface.png" style="width: 72%; display: block; margin: 0 auto"
+                 alt="A blue closed surface with a round porthole cut in it; through the porthole a green inner surface rises to a point; a small dimple is visible at the top of the blue surface">
+            <figcaption>
+                <span class="figure-label">Figure 4.</span> The whole index surface, for the same
+                exaggerated crystal: the outer sheet in blue, with a porthole cut around one optic axis,
+                and the inner sheet in green. Through the porthole, the inner sheet rises to a point exactly
+                where the outer one would have been. At the top is another of the four contact points, seen
+                from outside, where the outer sheet dips inwards to meet the inner. Fresnel knew these points
+                existed. Hamilton was the first to look closely at their shape.
+            </figcaption>
+        </figure>
+
+        <h2>4. What the crystal cannot decide</h2>
+
+        <p>
+            Zoom in on one of the contact points and the two sheets turn out to be two cones standing tip to
+            tip, like the juggler’s diabolo that gave Michael Berry his name for such a place: a
+            <em>diabolical point</em>. Move away from the optic axis in any direction and the two speeds
+            separate in proportion to how far you have moved — not gently, the way two surfaces grazing each
+            other would, but with a corner.
+        </p>
+
+        <figure>
+            <img src="/writing/figures/cr_diabolo.png" style="width: 78%; display: block; margin: 0 auto"
+                 alt="Two cones meeting tip to tip, the upper one translucent blue and the lower one green, with a fan of orange lines rising from the tip and a dashed line along one edge of the fan">
+            <figcaption>
+                <span class="figure-label">Figure 5.</span> Close to a contact point: the two refractive
+                indices drawn as heights over the small disc of directions around the optic axis, the heights
+                stretched so the cones can be seen. The orange lines are perpendicular to the upper cone, one
+                for each straight line running up its side, all gathered at the tip; together they form a
+                cone of their own. The dashed line points along the optic axis, and is one of them.
+            </figcaption>
+        </figure>
+
+        <p>
+            Why should the shape of the surface matter? Because of the one piece of physics this article
+            takes on trust, which follows from Hamilton’s own theory of rays: the energy of a wave in a
+            crystal does not in general travel along the wave’s own direction, but perpendicular to the
+            index surface at that point. Figure 2 has already shown it happening. The second beam in calcite
+            enters square-on and is pushed sideways, because the index surface underneath it is tilted.
+        </p>
+        <p>
+            At an ordinary point of the surface there is one tangent plane, one perpendicular to it, and so
+            one ray. At the tip of a cone there is no tangent plane at all. Every straight line running up
+            the side of the cone has one of its own, and each of their perpendiculars has an equal claim to
+            be the direction of the ray. The wave travelling exactly along the optic axis cannot pick one.
+            So it takes all of them: one wave, a whole cone of rays.
+        </p>
+        <p>
+            That is <em>internal conical refraction</em>, and the geometry of the cone is fixed by the
+            crystal. The cone is slanted: one of its rays runs straight along the optic axis. Cut by a face
+            square to the axis, it traces an exact circle through the point where the axis meets that face.
+            And its opening — the angle \(2A\) between the optic axis and the opposite side of the cone —
+            depends only on the three indices:
+        </p>
+        \[
+        \tan 2A \;=\; \sqrt{\frac{\left(n_2^{2}-n_1^{2}\right)\left(n_3^{2}-n_2^{2}\right)}{n_1^{2}\,n_3^{2}}} .
+        \]
+        <p>
+            For aragonite, \(A\) is almost exactly one degree. For naphthalene, the crystal C. V. Raman and
+            his colleagues grew for their experiments of 1941, it is nearly seven times as much.
+        </p>
+        <p>
+            Then the light reaches the far face. Every ray in the cone belongs to the same wave, the one
+            travelling along the optic axis, so every one of them is refracted back into the direction the
+            light came in with. The hollow cone becomes a hollow cylinder, and a screen at any distance
+            shows a ring whose radius is, very nearly, \(A\) times the length of the crystal. For an aragonite crystal
+            twelve millimetres long, as Lloyd’s was, that is a ring 0.42 mm across: small, but
+            unmistakable.
+        </p>
+
+        <aside class="note">
+            <h4>Two cones for the price of one</h4>
+            <p>
+                Hamilton predicted a second version too. The <em>ray surface</em> — the shape a flash of
+                light spreads into inside the crystal — has conical points of its own, along slightly
+                different directions. Light travelling inside the crystal along one of those carries a whole
+                cone of wave directions, each refracted differently at the exit face, so it leaves not as a
+                cylinder but as a cone that keeps on widening. This is <em>external</em> conical refraction,
+                and Lloyd found it as well.
+            </p>
+        </aside>
+
+        <h2>5. Half a turn</h2>
+
+        <p>
+            There is more to see. Lloyd found that the light in these cones is polarized — linearly, at every
+            point — and that the direction of polarization changes as you go around. But it does not make one
+            full turn as you go once around the ring. It makes half a turn.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/cr_ring_pol.png"
+                         alt="A bright double ring with short black ticks around it, the ticks turning half as fast as the angle around the ring">
+                    <div class="subcaption">(a) unpolarized light in</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/cr_ring_lin.png"
+                         alt="The same double ring bright on the left and fading to darkness on the right">
+                    <div class="subcaption">(b) vertically polarized light in</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 6.</span> (a) The ring, computed from the wave theory of
+                Section 7, with the polarization read off the computed light at thirty-two places around it.
+                Start on the right, where it is horizontal, and go anticlockwise: the ticks turn the same way,
+                but half as fast. Back at the start they have turned through 180°, and a line turned through
+                180° is the same line. (b) Send in light that is itself polarized vertically, and each point
+                of the ring passes only the part of it that matches its own polarization. The right-hand side,
+                where the ring’s polarization is horizontal, goes dark. Turn the incoming polarization through
+                some angle and the dark point moves around the ring by twice as much.
+            </figcaption>
+        </figure>
+
+        <p>
+            Seen from inside the crystal this is not mysterious at all, and it is the most important fact in
+            the article. Each ray in the cone comes from a different side of the diabolo, and on each side
+            the matrix \(M\) has its own pair of eigenvectors. Near an optic axis, and in suitable
+            coordinates \((x, y)\) for how far the direction of travel is from the axis, the part of \(M\)
+            that tells one polarization from the other is simply
+        </p>
+        \[
+        \begin{pmatrix} x &amp; y \\ y &amp; -x \end{pmatrix}
+        \;=\; r \begin{pmatrix} \cos\phi &amp; \sin\phi \\ \sin\phi &amp; -\cos\phi \end{pmatrix} ,
+        \]
+        <p>
+            with \(r\) and \(\phi\) the distance and the angle around the axis. Its eigenvalues are
+            \(\pm r\), which grow in proportion to the distance: that is the cone of Figure 5. Its
+            eigenvectors point at angles \(\phi/2\) and \(\phi/2 + 90^{\circ}\): that is the half turn.
+            Walk once around the axis, \(\phi\) runs from \(0\) to \(360^{\circ}\), and the polarizations turn
+            through \(180^{\circ}\). The cone and the half turn are one fact, seen twice.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/cr_turn_bi.png"
+                         alt="Grey line segments around a central point with orange segments on a dotted circle, and beside it a fan of orange arrows covering half a circle">
+                    <div class="subcaption">(a) around an optic axis of a biaxial crystal — half a turn</div>
+                </div>
+            </div>
+            <div class="figure-row" style="margin-top: 1rem">
+                <div>
+                    <img src="/writing/figures/cr_turn_uni.png"
+                         alt="Grey line segments around a central point with orange segments on a dotted circle, and beside it orange arrows covering a full circle">
+                    <div class="subcaption">(b) around the optic axis of a uniaxial crystal — a full turn</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 7.</span> The polarization of the slower wave for
+                directions near an optic axis (grey), seen looking down the axis. Follow it around the dotted
+                circle, shaded from light at the start to dark at the finish, then carry the same lines to a
+                common centre (right), with arrowheads to record the sense in which they were followed.
+                Around a biaxial crystal’s axis the lines make half a turn and the last arrow points
+                backwards — fine for a line, which has no arrowhead of its own, and impossible for an arrow.
+                Around the axis of a uniaxial crystal, one with two equal indices, they make a full turn.
+            </figcaption>
+        </figure>
+
+        <p>
+            This is the same count as in <a href="/writing/turning-number.html">Which Way Are You
+            Facing?</a>, applied not to a walker’s heading but to a field of lines. The number of turns the
+            line makes on a small loop around a point is called the <em>index</em> of that point. For a field
+            of arrows the index has to be a whole number, because an arrow must come back pointing the way it
+            started. A line only has to come back to itself, so its index can be a half.
+        </p>
+
+        <aside class="note">
+            <h4>The same half turn, elsewhere</h4>
+            <p>
+                Nothing here is special to light. Whenever two eigenvalues of a real symmetric matrix meet as
+                two parameters are varied, they generically meet in a cone, and the eigenvectors come back
+                reversed after a circuit around it. In molecules the parameters are the positions of the
+                atoms, the eigenvalues are electronic energy levels, and such meetings are called conical
+                intersections; the reversal was pointed out there by Herzberg and Longuet-Higgins in 1963, and
+                it is the simplest example of what Berry later called a geometric phase. Hamilton’s cone was
+                the first of these crossings anyone found.
+            </p>
+        </aside>
+
+        <h2>6. Why there have to be four</h2>
+
+        <p>
+            Now step back from any one axis and look at every direction at once. At each point of the sphere
+            of directions of travel, the crystal specifies a line: the polarization of, say, the faster wave.
+            That is a field of lines on a sphere, and it can be drawn.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/cr_sphere_uni.png"
+                         alt="A sphere covered in short blue dashes that radiate from one orange point">
+                    <div class="subcaption">(a) uniaxial — one point of index 1 on this side</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/cr_sphere_bi.png"
+                         alt="A sphere covered in short blue dashes with two orange points, around each of which the dashes turn by half a turn">
+                    <div class="subcaption">(b) biaxial — two points of index ½ on this side</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 8.</span> The polarization of the faster wave, for every
+                direction of travel, drawn on the sphere of directions. Both spheres are seen from the same
+                side, and the hidden side is a mirror image of the visible one. The uniaxial crystal’s lines
+                radiate from its optic axis like meridians from a pole: two singular points in all, one on
+                each side, each of index 1. The biaxial crystal’s field has four, each of index ½. Either way
+                the indices add up to 2.
+            </figcaption>
+        </figure>
+
+        <p>
+            They have to. The Poincaré–Hopf theorem, extended to fields of lines, says that however such a
+            field is drawn on a sphere, the indices of its singular points add up to 2 — the Euler
+            characteristic of the sphere. The hairy ball theorem, which turned up in
+            <a href="/writing/orienting-3d-prints.html">The Shape of All Possible Orientations</a>, is the
+            special case that there must be at least one. And a singular point of the polarization field is
+            not a technicality. It is a direction in which the crystal prefers no polarization over any
+            other, which means its two waves have the same speed. So every crystal that splits light at all —
+            setting aside, for a moment, crystals that twist it — has optic axes. It cannot not have them, any more than a hairy ball can be combed flat.
+        </p>
+        <p>
+            How the bill of 2 gets paid is a matter of symmetry. A uniaxial crystal, such as calcite or
+            sapphire, has two equal indices and pays with a single optic axis: two opposite points, each of
+            index 1. At those points the two sheets merely graze each other, so there is no cone and no ring.
+            But paying that way requires two indices to be exactly equal, and it is fragile. A place where the
+            two eigenvalues of a real symmetric \(2 \times 2\) matrix meet takes two conditions — the diagonal
+            entries equal, the off-diagonal entry zero — and so, among the two dimensions of directions on a
+            sphere, such places are isolated points; at a typical one the matrix looks like the one in
+            Section 5, the eigenvectors turn by half a turn, and the index is \(\pm\tfrac{1}{2}\). Make a
+            uniaxial crystal’s two equal indices very slightly unequal and its single axis comes apart into
+            two, a small angle apart.
+        </p>
+        <p>
+            So a crystal with three different indices must pay 2 in halves, and needs at least four such
+            points; since light going backwards along a line meets the same two speeds, they come in opposite
+            pairs. Four is exactly what every biaxial crystal has. The minimum that topology allows is
+            precisely what nature does, and at each of those points the sheets meet in a cone, because that is
+            what a half-turn meeting looks like. The cone Hamilton found by examining Fresnel’s surface was,
+            in this sense, forced.
+        </p>
+
+        <aside class="note">
+            <h4>What optical activity changes</h4>
+            <p>
+                Some crystals, quartz among them, twist the plane of polarization as light passes through. In
+                such a crystal the two waves are no longer linearly polarized but elliptically, and the matrix
+                acquires an imaginary part. A matrix of that kind needs three conditions, not two, for its
+                eigenvalues to meet, and a sphere of directions has only two dimensions in which to meet them:
+                the sheets pull apart and the cone is gone, as Waldemar Voigt pointed out in 1905. The topology
+                has not gone away, though. The long axes of the polarization ellipses still form a field of
+                lines, its indices still add up to 2, and its singular points sit near where the optic axes
+                were — directions in which both waves are now circularly polarized, and travel at slightly
+                different speeds. The bill is paid in a different currency.
+            </p>
+        </aside>
+
+        <p>
+            Nothing in this argument used much about light. It needed only that each direction of travel comes
+            with a real symmetric matrix whose eigenvectors are lines across that direction. Asking the same
+            question of other wave equations — elastic waves in a crystal, which have three sheets rather than
+            two, or waves travelling on a curved surface rather than through flat space — and letting topology
+            count the singular points that must appear is an <a href="/research.html">active line of
+            work</a>.
+        </p>
+
+        <h2>7. What Hamilton could not see</h2>
+
+        <p>
+            Hamilton’s ring is geometry: a single ray, infinitely thin, and a cone with no thickness. Light
+            does not come in single rays, and the difference is instructive. In 1839 Johann Poggendorff looked
+            at the ring more carefully and reported a coal-black line running through it, and later observers
+            confirmed what he had seen: the bright ring is really two, with a dark ring between them. In 1905
+            Voigt explained why, by way of a paradox. The light in Hamilton’s cone comes from a
+            single point of the index surface, and a single point has no area; so the ray exactly along the
+            axis, the one the whole cone was built from, carries no light at all. What a real beam contains is
+            a small spread of directions around the axis, and each of those is ordinarily doubly refracted:
+            two rays, one landing just outside Hamilton’s circle and one just inside. Hamilton’s ring marks,
+            roughly, where the light is not.
+        </p>
+        <p>
+            The modern theory, due to A. M. Belsky and A. P. Khapalyuk in 1978 and put in its cleanest form by
+            Berry in 2004, is wave optics rather than ray optics, and it is remarkably compact. For a round
+            beam sent along the optic axis, with \(a(\kappa)\) saying how much of it travels at each small
+            angle \(\kappa\) to the axis, the whole pattern behind the crystal is built from two integrals:
+        </p>
+        \[
+        b_{\pm}(\rho, \zeta) \;=\; \int_{0}^{\infty} \kappa\, a(\kappa)\, e^{-i\zeta\kappa^{2}/2}
+        \Big[\, J_0(\kappa\rho)\cos\kappa\rho_0 \;\pm\; J_1(\kappa\rho)\sin\kappa\rho_0 \Big]\,\mathrm{d}\kappa .
+        \]
+        <p>
+            Here \(\rho\) is the distance from the centre of the ring and \(\zeta\) the distance from the plane
+            in which it is sharpest, both in units set by the beam, and \(J_0\) and \(J_1\) are Bessel
+            functions. Light polarized along the ring’s own half-angle direction has amplitude \(b_+\); light
+            polarized across it, \(b_-\). And everything about the crystal and the beam is folded into one
+            number, \(\rho_0\): the radius of Hamilton’s ring divided by the width of the beam.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/cr_focal_a.png"
+                         alt="A blurred bright annulus barely distinguishable from a disc">
+                    <div class="subcaption">(a) \(\rho_0 = 1\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/cr_focal_b.png"
+                         alt="A bright ring with a fainter ring inside it and a dark gap between">
+                    <div class="subcaption">(b) \(\rho_0 = 4\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/cr_focal_c.png"
+                         alt="A thin bright ring with a faint inner ring and a thin dark ring between them">
+                    <div class="subcaption">(c) \(\rho_0 = 15\)</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 9.</span> The pattern in the plane where it is sharpest,
+                computed from the two integrals for a beam with a Gaussian profile, at three values of the
+                ring-to-beam ratio. When the ring is no wider than the beam, as it was in Lloyd’s experiment,
+                it is barely a ring at all. As the ratio grows it resolves into two bright rings with
+                Poggendorff’s dark ring between them. For a Gaussian beam the outer ring sits half a beam radius outside
+                Hamilton’s circle and the inner one 1.8 radii inside it, dimmed by diffraction to about a
+                quarter of the outer ring’s brightness; the dark ring lies 0.8 radii inside.
+            </figcaption>
+        </figure>
+
+        <p>
+            Away from that plane the two rings go separate ways, which Richard Potter noticed in 1841 and Raman
+            photographed a century later. The outer ring spreads and fades. The inner one closes in on the
+            centre until it has become a bright spike.
+        </p>
+
+        <figure>
+            <div class="figure-row">
+                <div>
+                    <img src="/writing/figures/cr_evolve_a.png"
+                         alt="A thin bright double ring">
+                    <div class="subcaption">(a) \(\zeta = 0\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/cr_evolve_b.png"
+                         alt="A bright inner ring and a broad faint outer ring">
+                    <div class="subcaption">(b) \(\zeta = 3\)</div>
+                </div>
+                <div>
+                    <img src="/writing/figures/cr_evolve_c.png"
+                         alt="A bright spot at the centre surrounded by faint haze">
+                    <div class="subcaption">(c) \(\zeta = 8.8\)</div>
+                </div>
+            </div>
+            <figcaption>
+                <span class="figure-label">Figure 10.</span> Moving away from the plane of sharpest focus, with
+                \(\rho_0 = 10\) throughout and each panel scaled to its own brightest point. The rings part:
+                the outer one spreads and fades, and the inner one contracts. At \(\zeta = 8.8\), where the
+                axis is brightest, the central spike is more than five times as bright as anything beyond
+                three beam radii, and more than twice as bright as the focused ring of panel (a).
+            </figcaption>
+        </figure>
+
+        <h2>8. Try it</h2>
+
+        <p>
+            Every figure here comes from the small matrix of Section 2. In code it is a handful of lines: build
+            the crystal’s response along its own axes, restrict it to the plane across the direction of travel,
+            and ask for eigenvalues and eigenvectors.
+        </p>
+
+<pre><code>def waves(n, s):
+    """The two plane waves a crystal allows along the direction s."""
+    eta = np.diag(1 / np.square(n))        # the crystal, along its own axes
+    u, v = across(s)                       # any two unit vectors across s
+    M = np.array([[u @ eta @ u, u @ eta @ v],
+                  [v @ eta @ u, v @ eta @ v]])
+    inv_n2, d = np.linalg.eigh(M)          # the eigenvalues are 1/n^2
+    return 1 / np.sqrt(inv_n2), d.T @ [u, v]    # slow wave first
+</code></pre>
+
+        <p>
+            Ask it about a direction along an optic axis and the two indices come back equal. Walk a small
+            circle of directions around that axis, follow either polarization continuously, and it comes back
+            reversed: half a turn. Walk around any other direction and it comes back exactly where it started.
+        </p>
+        <p>
+            The accompanying tests check what can be checked. That both indices satisfy Fresnel’s equation for
+            the index surface in five thousand random directions, and that the lines above agree with the
+            library that drew the figures; that a brute-force search of the sphere finds exactly four contact
+            points for aragonite, for naphthalene and for the exaggerated crystal of the figures, and exactly
+            two for a uniaxial one, all on the closed-form optic axes; that the gap between the sheets grows
+            linearly away from a biaxial contact and quadratically away from a uniaxial one, and that a
+            uniaxial axis splits in two when its equal indices are separated; that the rays at a contact point
+            form a cone that contains the optic axis, opens to exactly \(2A\), and lands on a circle, to within
+            rounding error, on a face cut square to the axis; that every biaxial contact has index ½ and every
+            uniaxial one index 1, adding up to 2 either way; that with optical activity switched on the speeds
+            never meet but the half turn survives; and that the wave theory loses no light, hands back the
+            incoming beam unchanged when the cone has no width, puts the polarization at exactly half the
+            azimuth, and places the rings and the spike where the captions say they are.
+        </p>
+        <p>
+            What stays with me is that the prediction came from asking a surface a question it could not
+            answer. At an ordinary point the index surface says which way the light goes; at four points it has
+            no opinion, and Hamilton had the nerve to take the absence of an answer literally and predict every
+            answer at once. Nor are those four points an accident of aragonite. A field of lines on a sphere has
+            to break somewhere; where it breaks, a crystal’s two speeds must coincide; and where two speeds
+            coincide with no special symmetry to help them, they meet in a cone and the lines turn by a half.
+            Hamilton found the cone by looking at a surface. He could have found it by counting.
+        </p>
+
+        <hr class="section-break">
+
+        <h3>Further reading</h3>
+        <ul class="writing-refs">
+            <li>W. R. Hamilton, <em>Third supplement to an essay on the theory of systems of rays</em>,
+                Transactions of the Royal Irish Academy 17 (1837) 1–144 — the prediction, presented to the
+                Academy in 1832.</li>
+            <li>H. Lloyd, <em>On the phenomena presented by light in its passage along the axes of biaxial
+                crystals</em>, Transactions of the Royal Irish Academy 17 (1837) 145–158 — the observation,
+                and the half turn of the polarization.</li>
+            <li>A. M. Belsky and A. P. Khapalyuk, <em>Internal conical refraction of bounded light beams in
+                biaxial crystals</em>, Optics and Spectroscopy 44 (1978) 436–439, and M. V. Berry,
+                <em>Conical diffraction asymptotics: fine structure of Poggendorff rings and axial spike</em>,
+                Journal of Optics A 6 (2004) 289–300 — the two integrals of Section 7, and what they
+                contain.</li>
+            <li>M. V. Berry and M. R. Jeffrey, <em>Conical diffraction: Hamilton’s diabolical point at the
+                heart of crystal optics</em>, Progress in Optics 50 (2007) 13–50 — the best single account,
+                history included.</li>
+            <li>C. Valero, <em>Maxwell’s equations, the Euler index, and Morse theory</em>, Mathematical
+                Notes 100 (2016) 352–362,
+                <a href="https://arxiv.org/abs/1311.0569" target="_blank" rel="noopener noreferrer">arXiv:1311.0569</a>,
+                and C. Valero-Valdés, <em>Singular geometrical optics for differential operators on
+                surfaces</em>, Journal of Mathematical Physics 62, 021508 (2021),
+                <a href="https://doi.org/10.1063/5.0028955" target="_blank" rel="noopener noreferrer">doi:10.1063/5.0028955</a>
+                — the singular points of the Fresnel surface accounted for by topology alone, and the same
+                question asked of wave equations on surfaces.</li>
+        </ul>
+
+        <hr class="section-break">
+
+        <p class="writing-hire">
+            I work as an independent consultant helping engineering and computational teams solve
+            difficult problems in geometric modeling, surface processing, and algorithmic design. If your
+            team is tackling a non-trivial spatial or mathematical challenge, reach out directly at
+            <a href="mailto:cvalero@carlosvalero.com">cvalero@carlosvalero.com</a>.
+        </p>
+
+        <p class="writing-links">
+            <a href="/writing.html">All writing</a>
+        </p>
+    </article>
+    <br>
+    <script id="replace_with_footer" src="/footer.js?v=2"></script>
+    <br>
+    <br>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-u1OknCvxWvY5kfmNBILK2hRnQC3Pr17a+RTT6rIHI7NnikvbZlHgTPOOmMi466C8"
+        crossorigin="anonymous"></script>
+</body>
+</html>
