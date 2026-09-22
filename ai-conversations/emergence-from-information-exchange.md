@@ -6,7 +6,7 @@
 
 ## Carlos — 13:01
 
-When a group of organisms find a way to exchange information something bigger emerges. Think of cells, ants, etc. An epiphenimenon. It seems the internet and devices like phones have allowed this interconations between humans and their information. The result is modern neural networks have access ti enough data to be able to solve millenium maths problems. What seems to be the next step
+When a group of organisms find a way to exchange information something bigger emerges. Think of cells, ants, etc. An epiphenomenon. It seems the internet and devices like phones have allowed this interconnection between humans and their information. The result is that modern neural networks have access to enough data to be able to solve millennium maths problems. What seems to be the next step?
 
 ## Claude
 
@@ -31,7 +31,7 @@ Sources:
 
 ## Carlos — 13:05
 
-How will connection with the physical world will happen?
+How will connection with the physical world happen?
 
 ## Claude
 
