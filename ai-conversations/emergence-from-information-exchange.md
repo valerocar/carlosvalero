@@ -10,8 +10,6 @@ When a group of organisms find a way to exchange information something bigger em
 
 ## Claude
 
-*[Web search: "AI Millennium Prize problem solved 2026"]*
-
 The next step is already visible in the result you're pointing to: the collective is moving from humans connected by machines to machines connected to each other.
 
 The Navier-Stokes claim wasn't one network. OpenAI's Noam Brown described a swarm of 10,000 agents spending 130 billion tokens over 88 hours, which he likened to one person thinking full-time for 4,000 years. That's a new colony, and it has something no ant nest or human organization ever had. Brown points to instant forking and merging of context: you can copy your best agent indefinitely and shut it down when it's done. In biological collectives, the nodes are fixed and information passes between them slowly. Here the nodes themselves can be duplicated and fused. The internet was the phase where humans pooled what they knew. The models are a compression of that pool. The swarm is the first emergent layer that doesn't need humans as the nodes.
@@ -21,11 +19,6 @@ The step after that is closing the loop with reality. Mathematics fell first bec
 A small quibble: "epiphenomenon" means a byproduct with no causal power. What you're describing is emergence, and its whole point is that the higher level does have causal power. That power is exactly what makes the next step consequential.
 
 Also worth noting: the result still needs scrutiny from the wider mathematical community before the problem can be considered settled.
-
-Sources:
-- [CNN](https://edition.cnn.com/2026/09/09/business/openai-millennium-problems-navier-stokes-hnk)
-- [Tribune](https://tribune.com.pk/story/2628177/openai-says-ai-model-solved-one-of-mathematics-millennium-prize-problems)
-- [StartupHub.ai](https://www.startuphub.ai/ai-news/ai-research/2026/10-000-agents-solved-a-millennium-prize-problem)
 
 ---
 
