@@ -346,3 +346,68 @@ a:hover {
     font-size: 15.5px;
     color: #444;
 }
+
+/* ---------------------------------------------------------------
+   Conversations with AI: dialogue transcripts
+   --------------------------------------------------------------- */
+
+.convo-turn {
+    margin: 1.7rem 0;
+    padding-left: 1.1rem;
+    border-left: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.convo-turn.convo-carlos {
+    border-left-color: rgba(44, 82, 130, 0.4);
+}
+
+.convo-speaker {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #777;
+    margin-bottom: 0.6rem;
+}
+
+.convo-turn.convo-carlos .convo-speaker {
+    color: #2c5282;
+}
+
+.convo-speaker .convo-time {
+    font-weight: 400;
+    letter-spacing: normal;
+    text-transform: none;
+    color: #999;
+    margin-left: 0.6em;
+}
+
+.convo-tool {
+    font-size: 14.5px;
+    font-style: italic;
+    color: #888;
+    margin-bottom: 0.9rem;
+}
+
+.convo-sources-label {
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    color: #777;
+    margin-top: 1.3rem;
+    margin-bottom: 0.4rem;
+}
+
+.convo-sources {
+    font-size: 14.5px;
+    margin-bottom: 0;
+}
+
+.convo-sources li {
+    margin-bottom: 0.25rem;
+}
+
+.convo-exchange + hr.section-break {
+    margin: 2.2rem auto;
+}
