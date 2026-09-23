@@ -408,6 +408,15 @@ a:hover {
     margin-bottom: 0.25rem;
 }
 
+.convo-turn figure {
+    margin: 1rem 0 0.4rem;
+}
+
+.convo-turn figure img {
+    display: block;
+    max-width: min(100%, 420px);
+}
+
 .convo-exchange + hr.section-break {
     margin: 2.2rem auto;
 }
