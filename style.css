@@ -347,6 +347,191 @@ a:hover {
     color: #444;
 }
 
+/* --- illustrated family history --- */
+
+.family-history .family-language {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 0.4rem;
+    padding: 0.5rem 0;
+    margin-bottom: 1.2rem;
+    background: #fff;
+    border-bottom: 1px solid rgba(44, 82, 130, 0.18);
+    font-size: 15px;
+}
+
+.family-history .family-language > span {
+    margin-right: 0.4rem;
+    color: #666;
+}
+
+.family-history .family-language a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    padding: 0.45rem 0.8rem;
+    border: 1px solid rgba(44, 82, 130, 0.25);
+    border-radius: 4px;
+    color: #2c5282;
+    text-decoration: none;
+}
+
+.family-history .family-language a[aria-current="page"] {
+    background: #2c5282;
+    color: #fff;
+}
+
+.family-history .family-language a:hover {
+    text-decoration: underline;
+}
+
+.family-history .family-language a:focus-visible {
+    outline: 3px solid #2c5282;
+    outline-offset: 3px;
+}
+
+.writing-entry .writing-book-thumb {
+    max-width: 170px;
+    box-shadow: 0 3px 12px rgba(0, 0, 0, 0.15);
+}
+
+.family-history .family-cover {
+    max-width: 25rem;
+    margin: 2rem auto;
+}
+
+.family-history .family-cover img {
+    box-shadow: 0 4px 18px rgba(0, 0, 0, 0.15);
+}
+
+.family-history .family-file-size {
+    display: inline-block;
+    color: #666;
+    font-size: 14px;
+}
+
+.family-history .family-epigraph {
+    margin: 2.5rem 0;
+    text-align: center;
+}
+
+.family-history .family-epigraph p {
+    font-size: 21px;
+    font-style: italic;
+    margin-bottom: 0.4rem;
+}
+
+.family-history .family-epigraph footer {
+    font-size: 13px;
+    color: #666;
+}
+
+.family-history .family-contents {
+    padding: 1.25rem 1.5rem;
+    background: rgba(44, 82, 130, 0.04);
+    border: 1px solid rgba(44, 82, 130, 0.18);
+    border-radius: 4px;
+    margin: 2rem 0;
+}
+
+.family-history .family-contents h2 {
+    margin-top: 0;
+}
+
+.family-history .family-contents ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.family-history .family-contents a {
+    display: inline-block;
+    padding: 0.25rem 0;
+}
+
+.family-history section,
+.family-history [id^="credito-"],
+.family-history #indice {
+    scroll-margin-top: 5.5rem;
+}
+
+.family-history .family-chapter-meta {
+    font-size: 14px;
+    color: #666;
+    margin: -0.4rem 0 1.2rem;
+}
+
+.family-history .family-archive {
+    margin: 2rem 0 1rem;
+    padding: 1rem 1.2rem;
+    background: #f8f6f0;
+    border: 1px solid #ded6c6;
+    border-radius: 4px;
+}
+
+.family-history .family-archive summary {
+    font-size: 17px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.family-history .family-archive summary span {
+    font-weight: 400;
+}
+
+.family-history .family-archive ul {
+    margin-top: 1rem;
+    padding-left: 1.25rem;
+}
+
+.family-history .family-archive li,
+.family-history .family-archive p {
+    font-size: 15.5px;
+}
+
+.family-history .family-archive li + li {
+    margin-top: 0.65rem;
+}
+
+.family-history .family-archive p {
+    margin-bottom: 0;
+    font-style: italic;
+}
+
+.family-history .family-back,
+.family-history .family-colophon {
+    font-size: 14px;
+    color: #666;
+}
+
+.family-history .writing-refs a {
+    overflow-wrap: anywhere;
+}
+
+.family-history .family-diagram-key,
+.family-history .family-diagram-key li {
+    font-size: 14px;
+    color: #555;
+}
+
+@media (max-width: 767.98px) {
+    .writing-entry .writing-book-thumb {
+        margin-bottom: 1rem;
+    }
+}
+
+@media print {
+    .family-history .family-language,
+    .family-history .family-contents,
+    .family-history .family-back {
+        display: none;
+    }
+}
+
 /* ---------------------------------------------------------------
    Conversations with AI: dialogue transcripts
    --------------------------------------------------------------- */
